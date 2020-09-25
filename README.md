@@ -1,2 +1,2 @@
 # backend
-Backend de la aplicación
+Backend de la aplicación.
