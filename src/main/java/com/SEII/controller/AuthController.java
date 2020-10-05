@@ -1,8 +1,9 @@
-package com.SEII.util;
+package com.SEII.controller;
 
 import com.SEII.models.AuthenticationRequest;
 import com.SEII.models.AuthenticationResponse;
 import com.SEII.services.MyUserDetailService;
+import com.SEII.util.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class EndpointsResource {
+public class AuthController {
 
   @Autowired
   private AuthenticationManager authenticationManager;
