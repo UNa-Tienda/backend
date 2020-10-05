@@ -19,7 +19,7 @@ public class PeopleApiController {
     @Autowired
     PeopleService peopleService;
     
-    @GetMapping("")
+    @GetMapping("/list")
     public List<Person> getAllPeople() {
         return peopleService.findAllPeople();
     }
@@ -29,7 +29,7 @@ public class PeopleApiController {
         return peopleService.findById(id);
     }
 
-    @PostMapping("")
+    @PostMapping("/add")
     public String addPerson(@RequestBody Person person) {
 
         if(person != null) {
@@ -55,7 +55,7 @@ public class PeopleApiController {
         return "The id is invalid for the person.";
     }
 
-    @PutMapping("")
+    @PutMapping("/update")
     public String updatePerson(@RequestBody Person person) {
         if(person != null) {
             peopleService.update(person);
