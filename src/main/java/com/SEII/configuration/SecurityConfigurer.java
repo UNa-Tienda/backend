@@ -1,6 +1,6 @@
 package com.SEII.configuration;
 
-import com.SEII.services.MyUserDetailService;
+import com.SEII.services.MyUserDetailsService;
 import com.SEII.util.JwtRequestFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -18,15 +19,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
   
+  // @Autowired
+  // private MyUserDetailService myUserDetailService;
+
   @Autowired
-  private MyUserDetailService myUserDetailService;
+  UserDetailsService userDetailsService;
 
   @Autowired
   private JwtRequestFilter jwtRequestFilter;
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(myUserDetailService);
+    // auth.userDetailsService(myUserDetailService);
+    auth.userDetailsService(userDetailsService);
   }
 
   @Override
@@ -35,7 +40,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
                 .authorizeRequests().antMatchers("/authenticate").permitAll()
                 .anyRequest().permitAll()
                 .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().formLogin();
     http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
   }
 

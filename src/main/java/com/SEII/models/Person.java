@@ -50,6 +50,11 @@ public class Person {
 
     public String location;
 
+    private String roles;
+
+    public String getRoles(){
+        return this.roles;
+    }
 
     public Person() {}
 
