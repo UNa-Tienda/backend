@@ -14,18 +14,14 @@ public class MyUserDetails implements UserDetails{
 	private String username;
 	private String password;
 	private boolean active;
-	private List<GrantedAuthority> authorities;
-	// private SimpleGrantedAuthority authorities;
+	private List<SimpleGrantedAuthority> authorities;
 
 
   public MyUserDetails(Person person){
 		this.username = person.username;
 		this.password = person.password;
 		this.active = true;
-		this.authorities = Arrays.stream(person.getRoles().split(","))
-														 .map(SimpleGrantedAuthority::new)
-														 .collect(Collectors.toList());
-		// this.authorities = new SimpleGrantedAuthority("ROLE_USER");
+		this.authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
   }
 
   @Override
@@ -45,17 +41,17 @@ public class MyUserDetails implements UserDetails{
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override

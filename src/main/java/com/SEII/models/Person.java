@@ -50,12 +50,6 @@ public class Person {
 
     public String location;
 
-    private String roles;
-
-    public String getRoles(){
-        return this.roles;
-    }
-
     public Person() {}
 
     public Person(long id, String name, String username, String email, String password, String photo, String location) {

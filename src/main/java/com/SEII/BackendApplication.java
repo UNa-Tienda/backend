@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-// @EnableJpaRepositories(basePackageClasses = PersonRepository.class)
+@EnableJpaRepositories(basePackageClasses = PersonRepository.class)
 public class BackendApplication {
 	
 	private static final Logger LOGGER=LoggerFactory.getLogger(BackendApplication.class);
