@@ -1,4 +1,4 @@
-package com.SEII.apis;
+package com.SEII.controller;
 import java.util.List;
 import com.SEII.models.Person;
 import com.SEII.services.PeopleService;
