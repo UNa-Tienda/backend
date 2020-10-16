@@ -50,7 +50,6 @@ public class Person {
 
     public String location;
 
-
     public Person() {}
 
     public Person(long id, String name, String username, String email, String password, String photo, String location) {
