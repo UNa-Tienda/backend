@@ -1,9 +1,9 @@
-package com.SEII.services;
+package com.SEII.auth.service;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-import com.SEII.models.MyUserDetails;
+import com.SEII.auth.model.MyUserDetails;
 import com.SEII.models.Person;
 import com.SEII.repositories.PersonRepository;
 
@@ -22,7 +22,6 @@ public class MyUserDetailsService implements UserDetailsService{
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    // return new User("foo", "foo", new ArrayList<>());
     Optional<Person> person = personRepository.findByUsername(username);
 
     person.orElseThrow(()-> new UsernameNotFoundException("Not found: " + username));

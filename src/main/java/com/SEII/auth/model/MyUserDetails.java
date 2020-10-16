@@ -1,9 +1,11 @@
-package com.SEII.models;
+package com.SEII.auth.model;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.SEII.models.Person;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

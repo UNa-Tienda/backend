@@ -2,7 +2,7 @@ package com.SEII.controller;
 
 import com.SEII.models.AuthenticationRequest;
 import com.SEII.models.AuthenticationResponse;
-import com.SEII.services.MyUserDetailsService;
+import com.SEII.auth.service.MyUserDetailsService;
 import com.SEII.util.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
