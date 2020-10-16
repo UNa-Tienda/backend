@@ -1,4 +1,5 @@
 package com.SEII.models;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-
 @Table(name = "post")
 
 public class Post {
@@ -16,13 +16,13 @@ public class Post {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    @OneToOne
+    public Integer id;
 
-    @Column(name = "user_id")
+    @Column(name = "u_id")
     //Aqui iria un metodo que toma la id del usuario creador del post ?
-    public Integer user_id;
+    public Integer u_id;
 
-    @OneToOne
+
 
     @Column(name = "category_id", nullable = true)
 
@@ -65,9 +65,11 @@ public class Post {
 
     public Post() {}
 
-    public Post(Integer user_id, Integer category_id, String title, String product_name, String image, String description, Integer price, Integer stock) {
+    public Post(Integer id,Integer u_id, Integer category_id, String title, String product_name, String image, String description, Integer price, Integer stock) {
 
-        this.user_id = user_id;
+        this.id = id;
+
+        this.u_id = u_id;
 
         this.category_id = category_id;
 
@@ -94,9 +96,11 @@ public class Post {
 
         StringBuilder builder = new StringBuilder();
 
-        builder.append(String.valueOf(user_id));
+        builder.append(String.valueOf(id));
         builder.append(", ");
-        builder.append(category_id);
+        builder.append(String.valueOf(u_id));
+        builder.append(", ");
+        builder.append(String.valueOf(category_id));
         builder.append(", ");
         builder.append(title);
         builder.append(", ");
@@ -106,11 +110,11 @@ public class Post {
         builder.append(", ");
         builder.append(description);
         builder.append(", ");
-        builder.append(total_review);
+        builder.append(String.valueOf(total_review));
         builder.append(", ");
-        builder.append(price);
+        builder.append(String.valueOf(price));
         builder.append(", ");
-        builder.append(stock);
+        builder.append(String.valueOf(stock));
         builder.append(", ");
 
         return builder.toString();
