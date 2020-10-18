@@ -1,4 +1,4 @@
-package com.SEII.models;
+package com.SEII.auth.model;
 
 public class AuthenticationResponse {
   
