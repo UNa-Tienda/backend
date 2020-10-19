@@ -10,20 +10,24 @@ import com.SEII.models.Person;
 import com.SEII.repositories.PersonRepository;
 
 @Service
-public class PeopleService {
+public class PersonService {
     
     @Autowired
-    PersonRepository repository;
+    PersonRepository personRepository;
 
     public List<Person> findAllPeople() {
-        return (List<Person>)repository.findAll();
+        return personRepository.findAll();
+    }
+
+    public Optional<Person> findByUsername(String username){
+        return personRepository.findByUsername(username);
     }
 
     public Person insert(Person p) {
     	
     	try 
     	{
-    		return repository.save(p);
+    		return personRepository.save(p);
     	}
     	catch(Exception e) 
     	{
@@ -33,9 +37,9 @@ public class PeopleService {
         
     }
 
-    public boolean delete(long id) {
+    public boolean delete(Integer id) {
         try {
-            repository.deleteById(id);
+            personRepository.deleteById(id);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -43,8 +47,8 @@ public class PeopleService {
         }
     }
 
-    public Person findById(long id) {
-        Optional<Person> result = repository.findById(id);
+    public Person findById(Integer id) {
+        Optional<Person> result = personRepository.findById(id);
         if (result.isPresent()) {
             return result.get();
         } else {
@@ -54,7 +58,7 @@ public class PeopleService {
 
     public boolean update(Person p) {
         try {
-            repository.save(p);
+            personRepository.save(p);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());

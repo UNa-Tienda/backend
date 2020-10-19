@@ -2,7 +2,7 @@ package com.SEII.controller;
 
 import java.util.List;
 
-import com.SEII.entity.Post;
+import com.SEII.models.Post;
 import com.SEII.services.PostService;
 
 import org.springframework.web.bind.annotation.GetMapping;

@@ -20,8 +20,8 @@ public class MyUserDetails implements UserDetails{
 
 
   public MyUserDetails(Person person){
-		this.username = person.username;
-		this.password = person.password;
+		this.username = person.getUsername();
+		this.password = person.getPassword();
 		this.active = true;
 		this.authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
   }
