@@ -1,8 +1,8 @@
 package com.SEII.controller;
 
-import com.SEII.models.AuthenticationRequest;
-import com.SEII.models.AuthenticationResponse;
-import com.SEII.services.MyUserDetailService;
+import com.SEII.auth.model.AuthenticationRequest;
+import com.SEII.auth.model.AuthenticationResponse;
+import com.SEII.auth.service.MyUserDetailsService;
 import com.SEII.util.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,13 +26,23 @@ public class AuthController {
   private AuthenticationManager authenticationManager;
   
   @Autowired
-  private MyUserDetailService userDetailsService;
+  private MyUserDetailsService userDetailsService;
 
   @Autowired
   private JwtUtil jwtTokenUtil;
 
-  @RequestMapping( "/hello")
+  @GetMapping("/hello")
   public String hello() {return "Hello World";}
+
+  @GetMapping("/user")
+  public String home(){
+    return ("<h1>Welcome User</h1>");
+  }
+
+  @GetMapping("/admin")
+  public String admin(){
+    return ("<h1>Welcome Admin</h1>");
+  }
 
   @PostMapping(value = "/authenticate")
   public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception{

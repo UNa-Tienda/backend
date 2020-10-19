@@ -1,0 +1,20 @@
+package com.SEII.services;
+
+import java.util.List;
+
+import com.SEII.models.Cartshop_item;
+import com.SEII.repositories.CartshopItemRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CartshopItemService {
+  
+  @Autowired
+  CartshopItemRepository cartshopItemRepository;
+
+  public List<Cartshop_item> getItems(){
+    return cartshopItemRepository.findAll();
+  }
+}

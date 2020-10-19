@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.SEII.models.Post;
 import com.SEII.repositories.PostRepository;
+
 
 @Service
 public class PostService {
@@ -15,7 +17,7 @@ public class PostService {
     @Autowired
     PostRepository repository;
 
-    public List<Post> findAllPosts() {
+    public List<Post> getAllPosts() {
         return (List<Post>)repository.findAll();
     }
 
@@ -33,7 +35,7 @@ public class PostService {
         
     }
 
-    public boolean delete(long id) {
+    public boolean delete(Integer id) {
         try {
             repository.deleteById(id);
             return true;
@@ -43,7 +45,7 @@ public class PostService {
         }
     }
 
-    public Post findById(long id) {
+    public Post findById(Integer id) {
         Optional<Post> result = repository.findById(id);
         if (result.isPresent()) {
             return result.get();
