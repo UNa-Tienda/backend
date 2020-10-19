@@ -24,17 +24,16 @@ public class Role {
   @Column(name = "name")
   private String name;
 
-  @OneToOne(mappedBy = "role_id")
-  private Person person;
+  // @OneToOne(mappedBy = "role_id")
+  // private Person person;
 
 
   public Role() {
   }
 
-  public Role(Integer id, String name, Person person) {
+  public Role(Integer id, String name) {
     this.id = id;
     this.name = name;
-    this.person = person;
   }
 
   public Integer getId() {
@@ -53,14 +52,6 @@ public class Role {
     this.name = name;
   }
 
-  public Person getPerson() {
-    return this.person;
-  }
-
-  public void setPerson(Person person) {
-    this.person = person;
-  }
-
   public Role id(Integer id) {
     this.id = id;
     return this;
@@ -68,11 +59,6 @@ public class Role {
 
   public Role name(String name) {
     this.name = name;
-    return this;
-  }
-
-  public Role person(Person person) {
-    this.person = person;
     return this;
   }
 
@@ -84,12 +70,12 @@ public class Role {
             return false;
         }
         Role role = (Role) o;
-        return Objects.equals(id, role.id) && Objects.equals(name, role.name) && Objects.equals(person, role.person);
+        return Objects.equals(id, role.id) && Objects.equals(name, role.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, person);
+    return Objects.hash(id, name);
   }
 
   @Override
@@ -97,8 +83,7 @@ public class Role {
     return "{" +
       " id='" + getId() + "'" +
       ", name='" + getName() + "'" +
-      ", person='" + getPerson() + "'" +
       "}";
   }
 
-}
+  }

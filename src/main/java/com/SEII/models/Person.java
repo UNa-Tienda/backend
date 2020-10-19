@@ -2,6 +2,7 @@ package com.SEII.models;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 
@@ -27,7 +30,7 @@ public class Person {
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", insertable = false, updatable = false)
     private Role role_id;
 
 
@@ -56,22 +59,22 @@ public class Person {
     private String photo;
     
     
-    @Column(name = "address")
+    @Column(name = "location")
 
-    private String address;
+    private String location;
     
     @Column(name = "paypal_id")
     private String paypal_id;
 
 
-    @OneToOne(mappedBy = "seller_id")
-    private Post post;
+    @OneToMany(mappedBy = "seller_id")
+    private List<Post> posts;
 
     @OneToMany(mappedBy = "buyerPerson")
     private List<Transaction> buyerTransactions;
 
-    @OneToMany(mappedBy = "sellerPerson")
-    private List<Transaction> sellerTransactions;
+    // @OneToMany(mappedBy = "sellerPerson")
+    // private List<Transaction> sellerTransactions;
 
     @OneToOne(mappedBy = "personCartshop")
     private Cartshop cartshop;
@@ -86,11 +89,10 @@ public class Person {
     private List<Answer> answers;
 
 
-
     public Person() {
     }
 
-    public Person(Integer id, Role role_id, String name, String username, String email, String password, String photo, String address, String paypal_id, Post post, List<Transaction> buyerTransactions, List<Transaction> sellerTransactions, Cartshop cartshop, List<Review> reviews, List<Question> questions, List<Answer> answers) {
+    public Person(Integer id, Role role_id, String name, String username, String email, String password, String photo, String location, String paypal_id) {
         this.id = id;
         this.role_id = role_id;
         this.name = name;
@@ -98,15 +100,8 @@ public class Person {
         this.email = email;
         this.password = password;
         this.photo = photo;
-        this.address = address;
+        this.location = location;
         this.paypal_id = paypal_id;
-        this.post = post;
-        this.buyerTransactions = buyerTransactions;
-        this.sellerTransactions = sellerTransactions;
-        this.cartshop = cartshop;
-        this.reviews = reviews;
-        this.questions = questions;
-        this.answers = answers;
     }
 
     public Integer getId() {
@@ -165,12 +160,12 @@ public class Person {
         this.photo = photo;
     }
 
-    public String getAddress() {
-        return this.address;
+    public String getLocation() {
+        return this.location;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getPaypal_id() {
@@ -179,62 +174,6 @@ public class Person {
 
     public void setPaypal_id(String paypal_id) {
         this.paypal_id = paypal_id;
-    }
-
-    public Post getPost() {
-        return this.post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
-
-    public List<Transaction> getBuyerTransactions() {
-        return this.buyerTransactions;
-    }
-
-    public void setBuyerTransactions(List<Transaction> buyerTransactions) {
-        this.buyerTransactions = buyerTransactions;
-    }
-
-    public List<Transaction> getSellerTransactions() {
-        return this.sellerTransactions;
-    }
-
-    public void setSellerTransactions(List<Transaction> sellerTransactions) {
-        this.sellerTransactions = sellerTransactions;
-    }
-
-    public Cartshop getCartshop() {
-        return this.cartshop;
-    }
-
-    public void setCartshop(Cartshop cartshop) {
-        this.cartshop = cartshop;
-    }
-
-    public List<Review> getReviews() {
-        return this.reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public List<Question> getQuestions() {
-        return this.questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
-
-    public List<Answer> getAnswers() {
-        return this.answers;
-    }
-
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
     }
 
     public Person id(Integer id) {
@@ -272,48 +211,13 @@ public class Person {
         return this;
     }
 
-    public Person address(String address) {
-        this.address = address;
+    public Person location(String location) {
+        this.location = location;
         return this;
     }
 
     public Person paypal_id(String paypal_id) {
         this.paypal_id = paypal_id;
-        return this;
-    }
-
-    public Person post(Post post) {
-        this.post = post;
-        return this;
-    }
-
-    public Person buyerTransactions(List<Transaction> buyerTransactions) {
-        this.buyerTransactions = buyerTransactions;
-        return this;
-    }
-
-    public Person sellerTransactions(List<Transaction> sellerTransactions) {
-        this.sellerTransactions = sellerTransactions;
-        return this;
-    }
-
-    public Person cartshop(Cartshop cartshop) {
-        this.cartshop = cartshop;
-        return this;
-    }
-
-    public Person reviews(List<Review> reviews) {
-        this.reviews = reviews;
-        return this;
-    }
-
-    public Person questions(List<Question> questions) {
-        this.questions = questions;
-        return this;
-    }
-
-    public Person answers(List<Answer> answers) {
-        this.answers = answers;
         return this;
     }
 
@@ -325,12 +229,12 @@ public class Person {
             return false;
         }
         Person person = (Person) o;
-        return Objects.equals(id, person.id) && Objects.equals(role_id, person.role_id) && Objects.equals(name, person.name) && Objects.equals(username, person.username) && Objects.equals(email, person.email) && Objects.equals(password, person.password) && Objects.equals(photo, person.photo) && Objects.equals(address, person.address) && Objects.equals(paypal_id, person.paypal_id) && Objects.equals(post, person.post) && Objects.equals(buyerTransactions, person.buyerTransactions) && Objects.equals(sellerTransactions, person.sellerTransactions) && Objects.equals(cartshop, person.cartshop) && Objects.equals(reviews, person.reviews) && Objects.equals(questions, person.questions) && Objects.equals(answers, person.answers);
+        return Objects.equals(id, person.id) && Objects.equals(role_id, person.role_id) && Objects.equals(name, person.name) && Objects.equals(username, person.username) && Objects.equals(email, person.email) && Objects.equals(password, person.password) && Objects.equals(photo, person.photo) && Objects.equals(location, person.location) && Objects.equals(paypal_id, person.paypal_id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, role_id, name, username, email, password, photo, address, paypal_id, post, buyerTransactions, sellerTransactions, cartshop, reviews, questions, answers);
+        return Objects.hash(id, role_id, name, username, email, password, photo, location, paypal_id);
     }
 
     @Override
@@ -343,16 +247,9 @@ public class Person {
             ", email='" + getEmail() + "'" +
             ", password='" + getPassword() + "'" +
             ", photo='" + getPhoto() + "'" +
-            ", address='" + getAddress() + "'" +
+            ", location='" + getLocation() + "'" +
             ", paypal_id='" + getPaypal_id() + "'" +
-            ", post='" + getPost() + "'" +
-            ", buyerTransactions='" + getBuyerTransactions() + "'" +
-            ", sellerTransactions='" + getSellerTransactions() + "'" +
-            ", cartshop='" + getCartshop() + "'" +
-            ", reviews='" + getReviews() + "'" +
-            ", questions='" + getQuestions() + "'" +
-            ", answers='" + getAnswers() + "'" +
             "}";
     }
-
+    
 }
