@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,12 +25,13 @@ public class Transaction {
   @JoinColumn(name = "person_id", insertable = false, updatable = false)
   private Person buyerPerson;
 
-  @ManyToOne
-  @JoinColumn( name = "person_id", insertable = false, updatable = false)
-  private Person sellerPerson;
+  // @ManyToOne
+  // @JoinColumn( name = "person_id", insertable = false, updatable = false)
+  // private Person sellerPerson;
 
-  @Column(name = "product")
-  private String product;
+  @OneToOne
+  @JoinColumn(name = "post_id", insertable = false, updatable = false)
+  private Post product_id;
 
   @Column(name = "stock_price")
   private Integer stock_price;
@@ -38,14 +40,15 @@ public class Transaction {
   private Integer quantity;
 
 
+
+
   public Transaction() {
   }
 
-  public Transaction(Integer id, Person buyerPerson, Person sellerPerson, String product, Integer stock_price, Integer quantity) {
+  public Transaction(Integer id, Person buyerPerson, Post product_id, Integer stock_price, Integer quantity) {
     this.id = id;
     this.buyerPerson = buyerPerson;
-    this.sellerPerson = sellerPerson;
-    this.product = product;
+    this.product_id = product_id;
     this.stock_price = stock_price;
     this.quantity = quantity;
   }
@@ -66,20 +69,12 @@ public class Transaction {
     this.buyerPerson = buyerPerson;
   }
 
-  public Person getSellerPerson() {
-    return this.sellerPerson;
+  public Post getProduct_id() {
+    return this.product_id;
   }
 
-  public void setSellerPerson(Person sellerPerson) {
-    this.sellerPerson = sellerPerson;
-  }
-
-  public String getProduct() {
-    return this.product;
-  }
-
-  public void setProduct(String product) {
-    this.product = product;
+  public void setProduct_id(Post product_id) {
+    this.product_id = product_id;
   }
 
   public Integer getStock_price() {
@@ -108,13 +103,8 @@ public class Transaction {
     return this;
   }
 
-  public Transaction sellerPerson(Person sellerPerson) {
-    this.sellerPerson = sellerPerson;
-    return this;
-  }
-
-  public Transaction product(String product) {
-    this.product = product;
+  public Transaction product_id(Post product_id) {
+    this.product_id = product_id;
     return this;
   }
 
@@ -136,12 +126,12 @@ public class Transaction {
             return false;
         }
         Transaction transaction = (Transaction) o;
-        return Objects.equals(id, transaction.id) && Objects.equals(buyerPerson, transaction.buyerPerson) && Objects.equals(sellerPerson, transaction.sellerPerson) && Objects.equals(product, transaction.product) && Objects.equals(stock_price, transaction.stock_price) && Objects.equals(quantity, transaction.quantity);
+        return Objects.equals(id, transaction.id) && Objects.equals(buyerPerson, transaction.buyerPerson) && Objects.equals(product_id, transaction.product_id) && Objects.equals(stock_price, transaction.stock_price) && Objects.equals(quantity, transaction.quantity);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, buyerPerson, sellerPerson, product, stock_price, quantity);
+    return Objects.hash(id, buyerPerson, product_id, stock_price, quantity);
   }
 
   @Override
@@ -149,11 +139,10 @@ public class Transaction {
     return "{" +
       " id='" + getId() + "'" +
       ", buyerPerson='" + getBuyerPerson() + "'" +
-      ", sellerPerson='" + getSellerPerson() + "'" +
-      ", product='" + getProduct() + "'" +
+      ", product_id='" + getProduct_id() + "'" +
       ", stock_price='" + getStock_price() + "'" +
       ", quantity='" + getQuantity() + "'" +
       "}";
   }
-
+    
 }

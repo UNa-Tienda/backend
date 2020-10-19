@@ -29,22 +29,21 @@ public class Category {
 
   private String image;
 
-  @OneToMany(mappedBy = "category_id")
-  private List<Post> posts;
+  // @OneToMany(mappedBy = "category_id")
+  // private List<Post> posts;
 
-  @OneToMany(mappedBy = "category_coupon_id")
-  private List<Coupon> coupons;
+  // @OneToMany(mappedBy = "category_coupon_id")
+  // private List<Coupon> coupons;
   
+
 
   public Category() {
   }
 
-  public Category(Integer id, String name, String image, List<Post> posts, List<Coupon> coupons) {
+  public Category(Integer id, String name, String image) {
     this.id = id;
     this.name = name;
     this.image = image;
-    this.posts = posts;
-    this.coupons = coupons;
   }
 
   public Integer getId() {
@@ -71,22 +70,6 @@ public class Category {
     this.image = image;
   }
 
-  public List<Post> getPosts() {
-    return this.posts;
-  }
-
-  public void setPosts(List<Post> posts) {
-    this.posts = posts;
-  }
-
-  public List<Coupon> getCoupons() {
-    return this.coupons;
-  }
-
-  public void setCoupons(List<Coupon> coupons) {
-    this.coupons = coupons;
-  }
-
   public Category id(Integer id) {
     this.id = id;
     return this;
@@ -102,16 +85,6 @@ public class Category {
     return this;
   }
 
-  public Category posts(List<Post> posts) {
-    this.posts = posts;
-    return this;
-  }
-
-  public Category coupons(List<Coupon> coupons) {
-    this.coupons = coupons;
-    return this;
-  }
-
   @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -120,12 +93,12 @@ public class Category {
             return false;
         }
         Category category = (Category) o;
-        return Objects.equals(id, category.id) && Objects.equals(name, category.name) && Objects.equals(image, category.image) && Objects.equals(posts, category.posts) && Objects.equals(coupons, category.coupons);
+        return Objects.equals(id, category.id) && Objects.equals(name, category.name) && Objects.equals(image, category.image);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, image, posts, coupons);
+    return Objects.hash(id, name, image);
   }
 
   @Override
@@ -134,9 +107,7 @@ public class Category {
       " id='" + getId() + "'" +
       ", name='" + getName() + "'" +
       ", image='" + getImage() + "'" +
-      ", posts='" + getPosts() + "'" +
-      ", coupons='" + getCoupons() + "'" +
       "}";
   }
-  
+
 }

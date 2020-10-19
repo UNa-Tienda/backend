@@ -100,23 +100,42 @@ CREATE TABLE IF NOT EXISTS "public"."coupon"(
 -- ---------------------
 CREATE TABLE IF NOT EXISTS "public"."transaction"(
   "transaction_id"     SERIAL  NOT NULL,
-  "buyer_id"           INT     NOT NULL,
-  "seller_id"          INT     NOT NULL,
-  "product"            TEXT    NOT NULL,
+  "person_id"          INT     NOT NULL,
+  "post_id"            INT     NOT NULL,
   "stock_price"        INT     NOT NULL,
   "quantity"           INT     NOT NULL,
   PRIMARY KEY ("transaction_id"),
   CONSTRAINT "fk_buyer_id"
-    FOREIGN KEY ("buyer_id")
+    FOREIGN KEY ("person_id")
       REFERENCES "public"."person" ("person_id")
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
-  CONSTRAINT "fk_seller_id"
-    FOREIGN KEY ("seller_id")
-      REFERENCES "public"."person" ("person_id")
+  CONSTRAINT "fk_post_id"
+    FOREIGN KEY ("post_id")
+      REFERENCES "public"."post" ("post_id")
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
+
+-- ---------------------
+-- Table "public"."transaction_seller"
+-- ---------------------
+-- CREATE TABLE IF NOT EXISTS "public"."transaction_seller"(
+--   "transaction_seller_id"     SERIAL  NOT NULL,
+--   "transaction_id"            INT     NOT NULL,
+--   "seller_id"                 INT     NOT NULL,
+--   PRIMARY KEY ("transaction_seller_id"),
+--   CONSTRAINT "fk_transaction_id"
+--     FOREIGN KEY ("transaction_id")
+--       REFERENCES "public"."transaction" ("transaction_id")
+--       ON DELETE NO ACTION
+--       ON UPDATE NO ACTION,
+--   CONSTRAINT "fk_seller_id"
+--     FOREIGN KEY ("seller_id")
+--       REFERENCES "public"."person" ("person_id")
+--       ON DELETE NO ACTION
+--       ON UPDATE NO ACTION
+-- );
 
 -- ---------------------
 -- Table "public"."cartshop"
