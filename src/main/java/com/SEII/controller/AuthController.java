@@ -1,7 +1,7 @@
 package com.SEII.controller;
 
-import com.SEII.models.AuthenticationRequest;
-import com.SEII.models.AuthenticationResponse;
+import com.SEII.auth.model.AuthenticationRequest;
+import com.SEII.auth.model.AuthenticationResponse;
 import com.SEII.auth.service.MyUserDetailsService;
 import com.SEII.util.JwtUtil;
 

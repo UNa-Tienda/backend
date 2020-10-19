@@ -1,7 +1,7 @@
 package com.SEII.controller;
 import java.util.List;
 import com.SEII.models.Person;
-import com.SEII.services.PeopleService;
+import com.SEII.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PeopleApiController {
 
     @Autowired
-    PeopleService peopleService;
+    PersonService peopleService;
     
     @GetMapping("/list")
     public List<Person> getAllPeople() {
@@ -25,7 +25,7 @@ public class PeopleApiController {
     }
 
     @GetMapping("{id}")
-    public Person getPerson(@PathVariable long id) {
+    public Person getPerson(@PathVariable Integer id) {
         return peopleService.findById(id);
     }
 
@@ -43,7 +43,7 @@ public class PeopleApiController {
 
 
 	@DeleteMapping("{id}")
-    public String deletePerson(@PathVariable("id") long id) {
+    public String deletePerson(@PathVariable("id") Integer id) {
 
         if(id > 0) {
             if(peopleService.delete(id)) {
