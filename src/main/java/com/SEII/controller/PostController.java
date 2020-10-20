@@ -2,8 +2,10 @@ package com.SEII.controller;
 
 import java.util.List;
 
+import com.SEII.models.Category;
 import com.SEII.models.Person;
 import com.SEII.models.Post;
+import com.SEII.services.CategoryService;
 import com.SEII.services.PersonService;
 import com.SEII.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class PostController {
 
   @Autowired
   private PostService postService;
+
+  @Autowired
+  private CategoryService categoryService;
   
   @GetMapping("/list")
   public List<Post> getAllPosts() {
@@ -45,11 +50,14 @@ public class PostController {
 
       if(post != null) {
           Person person = personService.findById(1); // esto es lo que digo que toca cambiar pero de momento lo dejo con valores fijos
+          Category category = categoryService.getCategory(1);
           if( person == null ){
               return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
           }
           
           post.setSeller_id(person);
+          post.setCategory_id(category);
+          post.setStock(10);
           System.out.print(post.toString());
           postService.insert(post);
           return new ResponseEntity<>( HttpStatus.CREATED );

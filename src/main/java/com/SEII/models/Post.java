@@ -26,7 +26,7 @@ public class Post {
 
     private Integer id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "person_id")
     private Person seller_id;
 
@@ -71,11 +71,9 @@ public class Post {
     public Post() {
     }
 
-    public Post(Category category_id, String title, String product_name, String image,
-            String description, Integer price, Integer stock) { //Solo agrego los atributos que usamos por ahora, quito los demas
+    public Post(String title, String product_name, String image, String description,
+            Integer price, Integer stock) { // Solo agrego los atributos que usamos por ahora, quito los demas
 
-        
-        this.category_id = category_id;
         this.title = title;
         this.product_name = product_name;
         this.image = image;
@@ -165,30 +163,6 @@ public class Post {
         this.stock = stock;
     }
 
-    public Cartshop_item getCartshop_item() {
-        return this.cartshop_item;
-    }
-
-    public void setCartshop_item(Cartshop_item cartshop_item) {
-        this.cartshop_item = cartshop_item;
-    }
-
-    public List<Review> getReviews() {
-        return this.reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public List<Question> getQuestions() {
-        return this.questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
-
     public Post id(Integer id) {
         this.id = id;
         return this;
@@ -239,21 +213,6 @@ public class Post {
         return this;
     }
 
-    public Post cartshop_item(Cartshop_item cartshop_item) {
-        this.cartshop_item = cartshop_item;
-        return this;
-    }
-
-    public Post reviews(List<Review> reviews) {
-        this.reviews = reviews;
-        return this;
-    }
-
-    public Post questions(List<Question> questions) {
-        this.questions = questions;
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -262,19 +221,18 @@ public class Post {
             return false;
         }
         Post post = (Post) o;
+
         return Objects.equals(id, post.id) && Objects.equals(seller_id, post.seller_id)
                 && Objects.equals(category_id, post.category_id) && Objects.equals(title, post.title)
                 && Objects.equals(product_name, post.product_name) && Objects.equals(image, post.image)
                 && Objects.equals(description, post.description) && total_review == post.total_review
-                && Objects.equals(price, post.price) && Objects.equals(stock, post.stock)
-                && Objects.equals(cartshop_item, post.cartshop_item) && Objects.equals(reviews, post.reviews)
-                && Objects.equals(questions, post.questions);
+                && Objects.equals(price, post.price) && Objects.equals(stock, post.stock);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, seller_id, category_id, title, product_name, image, description, total_review, price,
-                stock, cartshop_item, reviews, questions);
+                stock);
     }
 
     @Override
@@ -282,8 +240,7 @@ public class Post {
         return "{" + " id='" + getId() + "'" + ", seller_id='" + getSeller_id() + "'" + ", category_id='"
                 + getCategory_id() + "'" + ", title='" + getTitle() + "'" + ", product_name='" + getProduct_name() + "'"
                 + ", image='" + getImage() + "'" + ", description='" + getDescription() + "'" + ", total_review='"
-                + getTotal_review() + "'" + ", price='" + getPrice() + "'" + ", stock='" + getStock() + "'"
-                + ", cartshop_item='" + getCartshop_item() + "'" + ", reviews='" + getReviews() + "'" + ", questions='"
-                + getQuestions() + "'" + "}";
+                + getTotal_review() + "'" + ", price='" + getPrice() + "'" + ", stock='" + getStock() + "'" + "}";
     }
+
 }

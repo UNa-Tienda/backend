@@ -32,19 +32,19 @@ public class Cartshop {
   @Column(name = "state")
   private String state;
 
-  @OneToMany(mappedBy = "cartshop")
-  private List<Cartshop_item> items;
+  // @OneToMany(mappedBy = "cartshop")
+  // private List<Cartshop_item> items;
+
 
 
   public Cartshop() {
   }
 
-  public Cartshop(Integer id, Person personCartshop, Integer total, String state, List<Cartshop_item> items) {
+  public Cartshop(Integer id, Person personCartshop, Integer total, String state) {
     this.id = id;
     this.personCartshop = personCartshop;
     this.total = total;
     this.state = state;
-    this.items = items;
   }
 
   public Integer getId() {
@@ -79,14 +79,6 @@ public class Cartshop {
     this.state = state;
   }
 
-  public List<Cartshop_item> getItems() {
-    return this.items;
-  }
-
-  public void setItems(List<Cartshop_item> items) {
-    this.items = items;
-  }
-
   public Cartshop id(Integer id) {
     this.id = id;
     return this;
@@ -107,11 +99,6 @@ public class Cartshop {
     return this;
   }
 
-  public Cartshop items(List<Cartshop_item> items) {
-    this.items = items;
-    return this;
-  }
-
   @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -120,12 +107,12 @@ public class Cartshop {
             return false;
         }
         Cartshop cartshop = (Cartshop) o;
-        return Objects.equals(id, cartshop.id) && Objects.equals(personCartshop, cartshop.personCartshop) && Objects.equals(total, cartshop.total) && Objects.equals(state, cartshop.state) && Objects.equals(items, cartshop.items);
+        return Objects.equals(id, cartshop.id) && Objects.equals(personCartshop, cartshop.personCartshop) && Objects.equals(total, cartshop.total) && Objects.equals(state, cartshop.state);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, personCartshop, total, state, items);
+    return Objects.hash(id, personCartshop, total, state);
   }
 
   @Override
@@ -135,8 +122,7 @@ public class Cartshop {
       ", personCartshop='" + getPersonCartshop() + "'" +
       ", total='" + getTotal() + "'" +
       ", state='" + getState() + "'" +
-      ", items='" + getItems() + "'" +
       "}";
   }
-
+  
 }
