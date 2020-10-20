@@ -10,16 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "coupon")
 public class Coupon {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-
+  @SequenceGenerator(name = "COUPON_COUPONID_GENERATOR", sequenceName = "public.coupon_coupon_id_seq", allocationSize = 1)
+  @GeneratedValue(generator = "COUPON_COUPONID_GENERATOR", strategy = GenerationType.SEQUENCE)
   @Column(name = "coupon_id")
-
   private Integer id;
 
   @ManyToOne

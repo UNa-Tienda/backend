@@ -118,26 +118,6 @@ CREATE TABLE IF NOT EXISTS "public"."transaction"(
 );
 
 -- ---------------------
--- Table "public"."transaction_seller"
--- ---------------------
--- CREATE TABLE IF NOT EXISTS "public"."transaction_seller"(
---   "transaction_seller_id"     SERIAL  NOT NULL,
---   "transaction_id"            INT     NOT NULL,
---   "seller_id"                 INT     NOT NULL,
---   PRIMARY KEY ("transaction_seller_id"),
---   CONSTRAINT "fk_transaction_id"
---     FOREIGN KEY ("transaction_id")
---       REFERENCES "public"."transaction" ("transaction_id")
---       ON DELETE NO ACTION
---       ON UPDATE NO ACTION,
---   CONSTRAINT "fk_seller_id"
---     FOREIGN KEY ("seller_id")
---       REFERENCES "public"."person" ("person_id")
---       ON DELETE NO ACTION
---       ON UPDATE NO ACTION
--- );
-
--- ---------------------
 -- Table "public"."cartshop"
 -- ---------------------
 CREATE TABLE IF NOT EXISTS "public"."cartshop"(
