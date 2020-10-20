@@ -43,22 +43,19 @@ public class PostController {
       return postService.findById(id);
   }
 
-  @PostMapping("/add") /*Aqui tocaria ver como se anexa el token al path, luego ese path se toma como parametro
-  en la función addPost (@PathVariable String token) o algo así, con eso buscamos la info del usuario
-  y sacamos su id, y ya con eso s ebusca la persona y se le anexa, pero de momento pondre la id manual  */
-  public ResponseEntity<Void> addPost(@RequestBody Post post) {
+  @PostMapping("/add/{categoryId}") /*Aqui tocaria ver como se saca la informaciòn del token
+  para poner la ID en lugar de ese "1" que esta fijo*/
+  public ResponseEntity<Void> addPost(@PathVariable Integer categoryId,@RequestBody Post post) {
 
       if(post != null) {
           Person person = personService.findById(1); // esto es lo que digo que toca cambiar pero de momento lo dejo con valores fijos
-          Category category = categoryService.getCategory(1);
+          Category category = categoryService.getCategory(categoryId);
           if( person == null ){
               return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
           }
           
           post.setSeller_id(person);
           post.setCategory_id(category);
-          post.setStock(10);
-          System.out.print(post.toString());
           postService.insert(post);
           return new ResponseEntity<>( HttpStatus.CREATED );
       } else {

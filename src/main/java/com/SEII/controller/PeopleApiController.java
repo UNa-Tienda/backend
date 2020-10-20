@@ -1,7 +1,12 @@
 package com.SEII.controller;
 import java.util.List;
+import java.util.Optional;
+
 import com.SEII.models.Person;
+import com.SEII.models.Role;
 import com.SEII.services.PersonService;
+import com.SEII.services.RoleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +23,9 @@ public class PeopleApiController {
 
     @Autowired
     PersonService peopleService;
+
+    @Autowired
+    RoleService roleService;
     
     @GetMapping("/list")
     public List<Person> getAllPeople() {
@@ -31,9 +39,11 @@ public class PeopleApiController {
 
     @PostMapping("/add")
     public String addPerson(@RequestBody Person person) {
+        Role role = roleService.getById(1);
 
         if(person != null) {
-        	System.out.print(person.toString());
+            System.out.print(person.toString());
+            person.setRole_id(role);;
             peopleService.insert(person);
             return "Added a person";
         } else {

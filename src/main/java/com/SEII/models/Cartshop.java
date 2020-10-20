@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +19,8 @@ import javax.persistence.Table;
 public class Cartshop {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @SequenceGenerator(name = "CARTSHOP_CARTSHOPID_GENERATOR", sequenceName = "public.cartshop_cartshop_id_seq", allocationSize = 1)
+  @GeneratedValue(generator = "CARTSHOP_CARTSHOPID_GENERATOR", strategy = GenerationType.SEQUENCE)
   @Column(name = "cartshop_id")
   private Integer id;
 

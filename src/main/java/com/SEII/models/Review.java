@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,8 +17,9 @@ import javax.persistence.Table;
 public class Review {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column
+  @SequenceGenerator(name = "REVIEW_REVIEWID_GENERATOR", sequenceName = "public.review_review_id_seq", allocationSize = 1)
+  @GeneratedValue(generator = "REVIEW_REVIEWID_GENERATOR", strategy = GenerationType.SEQUENCE)
+  @Column(name = "review_id")
   private Integer id;
 
   @ManyToOne

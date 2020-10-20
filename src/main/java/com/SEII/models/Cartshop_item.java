@@ -10,14 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "cartshop_item")
 public class Cartshop_item {
+
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column
+  @SequenceGenerator(name = "CARTSHOPITEM_CARTSHOPITEMID_GENERATOR", sequenceName = "public.cartshop_item_cartshop_item_id_seq", allocationSize = 1)
+  @GeneratedValue(generator = "CARTSHOPITEM_CARTSHOPITEMID_GENERATOR", strategy = GenerationType.SEQUENCE)
+  @Column(name = "cartshop_item_id")
   private Integer id;
 
   @ManyToOne

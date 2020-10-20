@@ -12,12 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "post")
 
 public class Post {
+
 
     @Id
     @SequenceGenerator(name = "POST_POSTID_GENERATOR", sequenceName = "public.post_post_id_seq", allocationSize = 1)
@@ -33,6 +35,7 @@ public class Post {
     @OneToOne
     @JoinColumn(name = "category_id", nullable = true)
     private Category category_id;
+
 
     @Column(name = "title")
 
