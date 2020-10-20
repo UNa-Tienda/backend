@@ -40,7 +40,8 @@ VALUES
     (1, 1, 1, 'titulo1', 'producto1', 'img1', 'description1', 1, 1, 1),
     (2, 2, 1, 'titulo2', 'producto2', 'img2', 'description2', 2, 2, 2),
     (3, 1, 2, 'titulo3', 'producto3', 'img3', 'description3', 3, 3, 3);
-ALTER SEQUENCE post_post_id_seq RESTART WITH 4;
+    ALTER SEQUENCE post_post_id_seq RESTART WITH 4;
+
 
 
 

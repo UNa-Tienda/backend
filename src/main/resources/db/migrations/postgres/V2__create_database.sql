@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS "public"."category"(
 CREATE TABLE IF NOT EXISTS "public"."post"(
   "post_id"       SERIAL  NOT NULL,
   "person_id"       INT     NOT NULL,
-  "category_id"   INT     NOT NULL,
+  "category_id"   INT     ,
   "title"         TEXT    NOT NULL,
   "product_name"  TEXT    NOT NULL,
   "image"         TEXT,

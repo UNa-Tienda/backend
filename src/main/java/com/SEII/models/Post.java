@@ -2,7 +2,6 @@ package com.SEII.models;
 
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -17,204 +17,206 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "post")
+
 public class Post {
-  @Id
-  @SequenceGenerator(name = "POST_POSTID_GENERATOR", sequenceName = "public.post_post_id_seq", allocationSize = 1)
-  @GeneratedValue(generator = "POST_POSTID_GENERATOR", strategy = GenerationType.SEQUENCE)
-  @Column(name = "post_id")
-  private Integer id;
 
 
-  @ManyToOne
-  @JoinColumn(name = "person_id")
-  private Person seller_id;
+    @Id
+    @SequenceGenerator(name = "POST_POSTID_GENERATOR", sequenceName = "public.post_post_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "POST_POSTID_GENERATOR", strategy = GenerationType.SEQUENCE)
+    @Column(name = "post_id")
 
-  @ManyToOne
-  @JoinColumn(name = "category_id")
-  private Category category_id;
+    private Integer id;
 
-  @Column(name = "title")
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person seller_id;
 
-  private String title;
+    @OneToOne
+    @JoinColumn(name = "category_id", nullable = true)
+    private Category category_id;
 
-  @Column(name = "product_name")
 
-  private String product_name;
+    @Column(name = "title")
 
-  @Column(name = "image")
+    private String title;
 
-  private String image;
+    @Column(name = "product_name")
 
-  @Column(name = "description")
+    private String product_name;
 
-  private String description;
+    @Column(name = "image", nullable = true)
 
-  @Column(name = "total_review")
-  private double total_review;
+    private String image;
 
-  @Column(name = "price")
-  private Integer price;
+    @Column(name = "description")
 
-  @Column(name = "stock")
-  private Integer stock;
-  
-  // @OneToOne(mappedBy = "cartshop_item_post_id")
-  // private Cartshop_item cartshop_item;
+    private String description;
 
-  // @OneToMany(mappedBy = "postReviewed")
-  // private List<Review> reviews;
+    @Column(name = "total_review")
+    private double total_review;
 
-  // @OneToMany(mappedBy = "postAsked")
-  // private List<Question> questions;
-  
+    @Column(name = "price")
+    private Integer price;
 
-  public Post() {
-  }
+    @Column(name = "stock")
+    private Integer stock;
 
-  public Post(Integer id, Person seller_id, Category category_id, String title, String product_name, String image, String description, double total_review, Integer price, Integer stock) {
-    this.id = id;
-    this.seller_id = seller_id;
-    this.category_id = category_id;
-    this.title = title;
-    this.product_name = product_name;
-    this.image = image;
-    this.description = description;
-    this.total_review = total_review;
-    this.price = price;
-    this.stock = stock;
-  }
+    @OneToOne(mappedBy = "cartshop_item_post_id")
+    private Cartshop_item cartshop_item;
 
-  public Integer getId() {
-    return this.id;
-  }
+    @OneToMany(mappedBy = "postReviewed")
+    private List<Review> reviews;
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+    @OneToMany(mappedBy = "postAsked")
+    private List<Question> questions;
 
-  public Person getSeller_id() {
-    return this.seller_id;
-  }
+    public Post() {
+    }
 
-  public void setSeller_id(Person seller_id) {
-    this.seller_id = seller_id;
-  }
+    public Post(String title, String product_name, String image, String description,
+            Integer price, Integer stock) { // Solo agrego los atributos que usamos por ahora, quito los demas
 
-  public Category getCategory_id() {
-    return this.category_id;
-  }
+        this.title = title;
+        this.product_name = product_name;
+        this.image = image;
+        this.description = description;
+        this.total_review = 0;
+        this.price = price;
+        this.stock = stock;
+    }
 
-  public void setCategory_id(Category category_id) {
-    this.category_id = category_id;
-  }
+    public Integer getId() {
+        return this.id;
+    }
 
-  public String getTitle() {
-    return this.title;
-  }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public Person getSeller_id() {
+        return this.seller_id;
+    }
 
-  public String getProduct_name() {
-    return this.product_name;
-  }
+    public void setSeller_id(Person seller_id) {
+        this.seller_id = seller_id;
+    }
 
-  public void setProduct_name(String product_name) {
-    this.product_name = product_name;
-  }
+    public Category getCategory_id() {
+        return this.category_id;
+    }
 
-  public String getImage() {
-    return this.image;
-  }
+    public void setCategory_id(Category category_id) {
+        this.category_id = category_id;
+    }
 
-  public void setImage(String image) {
-    this.image = image;
-  }
+    public String getTitle() {
+        return this.title;
+    }
 
-  public String getDescription() {
-    return this.description;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public String getProduct_name() {
+        return this.product_name;
+    }
 
-  public double getTotal_review() {
-    return this.total_review;
-  }
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
 
-  public void setTotal_review(double total_review) {
-    this.total_review = total_review;
-  }
+    public String getImage() {
+        return this.image;
+    }
 
-  public Integer getPrice() {
-    return this.price;
-  }
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-  public void setPrice(Integer price) {
-    this.price = price;
-  }
+    public String getDescription() {
+        return this.description;
+    }
 
-  public Integer getStock() {
-    return this.stock;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  public void setStock(Integer stock) {
-    this.stock = stock;
-  }
+    public double getTotal_review() {
+        return this.total_review;
+    }
 
-  public Post id(Integer id) {
-    this.id = id;
-    return this;
-  }
+    public void setTotal_review(double total_review) {
+        this.total_review = total_review;
+    }
 
-  public Post seller_id(Person seller_id) {
-    this.seller_id = seller_id;
-    return this;
-  }
+    public Integer getPrice() {
+        return this.price;
+    }
 
-  public Post category_id(Category category_id) {
-    this.category_id = category_id;
-    return this;
-  }
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
-  public Post title(String title) {
-    this.title = title;
-    return this;
-  }
+    public Integer getStock() {
+        return this.stock;
+    }
 
-  public Post product_name(String product_name) {
-    this.product_name = product_name;
-    return this;
-  }
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
 
-  public Post image(String image) {
-    this.image = image;
-    return this;
-  }
+    public Post id(Integer id) {
+        this.id = id;
+        return this;
+    }
 
-  public Post description(String description) {
-    this.description = description;
-    return this;
-  }
+    public Post seller_id(Person seller_id) {
+        this.seller_id = seller_id;
+        return this;
+    }
 
-  public Post total_review(double total_review) {
-    this.total_review = total_review;
-    return this;
-  }
+    public Post category_id(Category category_id) {
+        this.category_id = category_id;
+        return this;
+    }
 
-  public Post price(Integer price) {
-    this.price = price;
-    return this;
-  }
+    public Post title(String title) {
+        this.title = title;
+        return this;
+    }
 
-  public Post stock(Integer stock) {
-    this.stock = stock;
-    return this;
-  }
+    public Post product_name(String product_name) {
+        this.product_name = product_name;
+        return this;
+    }
 
-  @Override
+    public Post image(String image) {
+        this.image = image;
+        return this;
+    }
+
+    public Post description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public Post total_review(double total_review) {
+        this.total_review = total_review;
+        return this;
+    }
+
+    public Post price(Integer price) {
+        this.price = price;
+        return this;
+    }
+
+    public Post stock(Integer stock) {
+        this.stock = stock;
+        return this;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == this)
             return true;
@@ -222,28 +224,26 @@ public class Post {
             return false;
         }
         Post post = (Post) o;
-        return Objects.equals(id, post.id) && Objects.equals(seller_id, post.seller_id) && Objects.equals(category_id, post.category_id) && Objects.equals(title, post.title) && Objects.equals(product_name, post.product_name) && Objects.equals(image, post.image) && Objects.equals(description, post.description) && total_review == post.total_review && Objects.equals(price, post.price) && Objects.equals(stock, post.stock);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, seller_id, category_id, title, product_name, image, description, total_review, price, stock);
-  }
+        return Objects.equals(id, post.id) && Objects.equals(seller_id, post.seller_id)
+                && Objects.equals(category_id, post.category_id) && Objects.equals(title, post.title)
+                && Objects.equals(product_name, post.product_name) && Objects.equals(image, post.image)
+                && Objects.equals(description, post.description) && total_review == post.total_review
+                && Objects.equals(price, post.price) && Objects.equals(stock, post.stock);
+    }
 
-  @Override
-  public String toString() {
-    return "{" +
-      " id='" + getId() + "'" +
-      ", seller_id='" + getSeller_id() + "'" +
-      ", category_id='" + getCategory_id() + "'" +
-      ", title='" + getTitle() + "'" +
-      ", product_name='" + getProduct_name() + "'" +
-      ", image='" + getImage() + "'" +
-      ", description='" + getDescription() + "'" +
-      ", total_review='" + getTotal_review() + "'" +
-      ", price='" + getPrice() + "'" +
-      ", stock='" + getStock() + "'" +
-      "}";
-  }
-  
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, seller_id, category_id, title, product_name, image, description, total_review, price,
+                stock);
+    }
+
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", seller_id='" + getSeller_id() + "'" + ", category_id='"
+                + getCategory_id() + "'" + ", title='" + getTitle() + "'" + ", product_name='" + getProduct_name() + "'"
+                + ", image='" + getImage() + "'" + ", description='" + getDescription() + "'" + ", total_review='"
+                + getTotal_review() + "'" + ", price='" + getPrice() + "'" + ", stock='" + getStock() + "'" + "}";
+    }
+
 }
