@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -17,12 +18,14 @@ import javax.persistence.Table;
 public class Transaction {
   
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @SequenceGenerator(name = "TRANSACTION_TRANSACTIONID_GENERATOR", sequenceName = "public.transaction_transaction_id_seq", allocationSize = 1)
+  @GeneratedValue(generator = "TRANSACTION_TRANSACTIONID_GENERATOR", strategy = GenerationType.SEQUENCE)
   @Column(name = "transaction_id")
   private Integer id;
 
+  
   @ManyToOne
-  @JoinColumn(name = "person_id", insertable = false, updatable = false)
+  @JoinColumn(name = "person_id")
   private Person buyerPerson;
 
   // @ManyToOne

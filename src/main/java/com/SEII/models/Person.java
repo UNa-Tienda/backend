@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,15 +23,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Person {
 
     @Id
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
+    @SequenceGenerator(name = "PERSON_PERSONID_GENERATOR", sequenceName = "public.person_person_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "PERSON_PERSONID_GENERATOR", strategy = GenerationType.SEQUENCE)
     @Column(name = "person_id")
-
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "role_id", insertable = false, updatable = false)
+    @JoinColumn(name = "role_id", updatable = false)
     private Role role_id;
 
 

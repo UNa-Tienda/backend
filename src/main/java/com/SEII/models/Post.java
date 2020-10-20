@@ -12,16 +12,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "post")
 public class Post {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-
+  @SequenceGenerator(name = "POST_POSTID_GENERATOR", sequenceName = "public.post_post_id_seq", allocationSize = 1)
+  @GeneratedValue(generator = "POST_POSTID_GENERATOR", strategy = GenerationType.SEQUENCE)
   @Column(name = "post_id")
-
   private Integer id;
 
 

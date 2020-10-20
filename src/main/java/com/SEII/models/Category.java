@@ -9,16 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
 public class Category {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-
+  @SequenceGenerator(name = "CATEGORY_CATEGORY_ID_GENERATOR", sequenceName = "public.category_category_id_seq", allocationSize = 1)
+  @GeneratedValue(generator = "CATEGORY_CATEGORY_ID_GENERATOR", strategy = GenerationType.SEQUENCE)
   @Column(name = "category_id")
-
   private Integer id;
 
   @Column(name = "name")
