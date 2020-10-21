@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import com.SEII.auth.model.MyUserDetails;
-import com.SEII.models.Person;
+import com.SEII.models.PersonDTO;
 import com.SEII.repositories.PersonRepository;
 import com.SEII.services.PersonService;
 
@@ -22,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService{
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Optional<Person> person = personService.findByUsername(username);
+    Optional<PersonDTO> person = personService.findByUsername(username);
 
     person.orElseThrow(()-> new UsernameNotFoundException("Not found: " + username));
     

@@ -24,7 +24,7 @@ public class Review {
 
   @ManyToOne
   @JoinColumn(name = "person_id")
-  private Person reviewByPerson;
+  private PersonDTO reviewByPerson;
 
   @ManyToOne
   @JoinColumn(name = "post_id")
@@ -40,7 +40,7 @@ public class Review {
   public Review() {
   }
 
-  public Review(Integer id, Person reviewByPerson, Post postReviewed, Integer value, String text) {
+  public Review(Integer id, PersonDTO reviewByPerson, Post postReviewed, Integer value, String text) {
     this.id = id;
     this.reviewByPerson = reviewByPerson;
     this.postReviewed = postReviewed;
@@ -56,11 +56,11 @@ public class Review {
     this.id = id;
   }
 
-  public Person getReviewByPerson() {
+  public PersonDTO getReviewByPerson() {
     return this.reviewByPerson;
   }
 
-  public void setReviewByPerson(Person reviewByPerson) {
+  public void setReviewByPerson(PersonDTO reviewByPerson) {
     this.reviewByPerson = reviewByPerson;
   }
 
@@ -93,7 +93,7 @@ public class Review {
     return this;
   }
 
-  public Review reviewByPerson(Person reviewByPerson) {
+  public Review reviewByPerson(PersonDTO reviewByPerson) {
     this.reviewByPerson = reviewByPerson;
     return this;
   }

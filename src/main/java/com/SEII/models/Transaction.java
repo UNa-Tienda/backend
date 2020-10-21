@@ -26,7 +26,7 @@ public class Transaction {
   
   @ManyToOne
   @JoinColumn(name = "person_id")
-  private Person buyerPerson;
+  private PersonDTO buyerPerson;
 
   // @ManyToOne
   // @JoinColumn( name = "person_id", insertable = false, updatable = false)
@@ -48,7 +48,7 @@ public class Transaction {
   public Transaction() {
   }
 
-  public Transaction(Integer id, Person buyerPerson, Post product_id, Integer stock_price, Integer quantity) {
+  public Transaction(Integer id, PersonDTO buyerPerson, Post product_id, Integer stock_price, Integer quantity) {
     this.id = id;
     this.buyerPerson = buyerPerson;
     this.product_id = product_id;
@@ -64,11 +64,11 @@ public class Transaction {
     this.id = id;
   }
 
-  public Person getBuyerPerson() {
+  public PersonDTO getBuyerPerson() {
     return this.buyerPerson;
   }
 
-  public void setBuyerPerson(Person buyerPerson) {
+  public void setBuyerPerson(PersonDTO buyerPerson) {
     this.buyerPerson = buyerPerson;
   }
 
@@ -101,7 +101,7 @@ public class Transaction {
     return this;
   }
 
-  public Transaction buyerPerson(Person buyerPerson) {
+  public Transaction buyerPerson(PersonDTO buyerPerson) {
     this.buyerPerson = buyerPerson;
     return this;
   }

@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.SEII.models.Person;
+import com.SEII.models.PersonDTO;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +19,7 @@ public class MyUserDetails implements UserDetails{
 	private List<SimpleGrantedAuthority> authorities;
 
 
-  public MyUserDetails(Person person){
+  public MyUserDetails(PersonDTO person){
 		this.username = person.getUsername();
 		this.password = person.getPassword();
 		this.active = true;

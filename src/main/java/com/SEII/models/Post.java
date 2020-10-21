@@ -30,7 +30,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "person_id")
-    private Person seller_id;
+    private PersonDTO seller_id;
 
     @OneToOne
     @JoinColumn(name = "category_id", nullable = true)
@@ -94,11 +94,11 @@ public class Post {
         this.id = id;
     }
 
-    public Person getSeller_id() {
+    public PersonDTO getSeller_id() {
         return this.seller_id;
     }
 
-    public void setSeller_id(Person seller_id) {
+    public void setSeller_id(PersonDTO seller_id) {
         this.seller_id = seller_id;
     }
 
@@ -171,7 +171,7 @@ public class Post {
         return this;
     }
 
-    public Post seller_id(Person seller_id) {
+    public Post seller_id(PersonDTO seller_id) {
         this.seller_id = seller_id;
         return this;
     }

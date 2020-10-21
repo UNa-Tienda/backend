@@ -3,7 +3,7 @@ package com.SEII.controller;
 import java.util.List;
 
 import com.SEII.models.Category;
-import com.SEII.models.Person;
+import com.SEII.models.PersonDTO;
 import com.SEII.models.Post;
 import com.SEII.services.CategoryService;
 import com.SEII.services.PersonService;
@@ -48,7 +48,7 @@ public class PostController {
   public ResponseEntity<Void> addPost(@PathVariable Integer categoryId,@RequestBody Post post) {
 
       if(post != null) {
-          Person person = personService.findById(1); // esto es lo que digo que toca cambiar pero de momento lo dejo con valores fijos
+          PersonDTO person = personService.findById(1); // esto es lo que digo que toca cambiar pero de momento lo dejo con valores fijos
           Category category = categoryService.getCategory(categoryId);
           if( person == null ){
               return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
