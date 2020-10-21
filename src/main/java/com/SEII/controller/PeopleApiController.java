@@ -1,4 +1,5 @@
 package com.SEII.controller;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,8 @@ import com.SEII.services.PersonService;
 import com.SEII.services.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,6 +54,21 @@ public class PeopleApiController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody Person person ) {
+        Person person2 = peopleService.findByemail(person.getEmail());
+        if(person2 != null) {
+            if(person2.getPassword().equals(person.getPassword())){
+                return new ResponseEntity<>( HttpStatus.OK );
+            }else{
+                return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+            }        
+        } else {
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+        }
+
+         
+    }
 
 	@DeleteMapping("{id}")
     public String deletePerson(@PathVariable("id") Integer id) {
