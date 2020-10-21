@@ -8,6 +8,8 @@ import com.SEII.services.PersonService;
 import com.SEII.services.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,17 +39,20 @@ public class PeopleApiController {
         return peopleService.findById(id);
     }
 
-    @PostMapping("/add")
-    public String addPerson(@RequestBody Person person) {
-        Role role = roleService.getById(1);
+    @PostMapping("/add/{roleId}")
+    public ResponseEntity<Void> addPerson(@PathVariable Integer roleId, @RequestBody Person person){
+    //public String addPerson(@RequestBody Person person) {
+        Role role = roleService.getById(roleId);
 
         if(person != null) {
             System.out.print(person.toString());
-            person.setRole_id(role);;
+            person.setRole_id(role);
             peopleService.insert(person);
-            return "Added a person";
+            //return "Added a person";
+            return new ResponseEntity<>( HttpStatus.CREATED );
         } else {
-            return "Request does not contain a body";
+            //return "Request does not contain a body";
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
         }
     }
 
