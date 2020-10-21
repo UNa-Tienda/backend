@@ -3,7 +3,7 @@ package com.SEII.controller;
 import java.util.List;
 import java.util.Optional;
 
-import com.SEII.models.Person;
+import com.SEII.models.PersonDTO;
 import com.SEII.models.Role;
 import com.SEII.services.PersonService;
 import com.SEII.services.RoleService;
@@ -31,17 +31,17 @@ public class PeopleApiController {
     RoleService roleService;
     
     @GetMapping("/list")
-    public List<Person> getAllPeople() {
+    public List<PersonDTO> getAllPeople() {
         return peopleService.findAllPeople();
     }
 
-    @GetMapping("{id}")
-    public Person getPerson(@PathVariable Integer id) {
-        return peopleService.findById(id);
+    @GetMapping("{email}")
+    public PersonDTO getPersonByEmail(@PathVariable String email) {
+        return peopleService.findByemail(email);
     }
 
     @PostMapping("/add")
-    public String addPerson(@RequestBody Person person) {
+    public String addPerson(@RequestBody PersonDTO person) {
         Role role = roleService.getById(1);
 
         if(person != null) {
@@ -55,8 +55,8 @@ public class PeopleApiController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody Person person ) {
-        Person person2 = peopleService.findByemail(person.getEmail());
+    public ResponseEntity<Void> login(@RequestBody PersonDTO person ) {
+        PersonDTO person2 = peopleService.findByemail(person.getEmail());
         if(person2 != null) {
             if(person2.getPassword().equals(person.getPassword())){
                 return new ResponseEntity<>( HttpStatus.OK );
@@ -84,7 +84,7 @@ public class PeopleApiController {
     }
 
     @PutMapping("/update")
-    public String updatePerson(@RequestBody Person person) {
+    public String updatePerson(@RequestBody PersonDTO person) {
         if(person != null) {
             peopleService.update(person);
             return "Updated person.";
