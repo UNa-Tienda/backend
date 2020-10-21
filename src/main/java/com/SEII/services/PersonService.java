@@ -56,6 +56,11 @@ public class PersonService {
         }
     }
 
+    public Person findByemail(String email) {
+        return personRepository.findByEmail(email);
+        }
+    
+
     public boolean update(Person p) {
         try {
             personRepository.save(p);
