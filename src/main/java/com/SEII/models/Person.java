@@ -1,4 +1,5 @@
 package com.SEII.models;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -66,7 +67,8 @@ public class Person {
     private String paypal_id;
 
 
-    @OneToMany(mappedBy = "seller_id")
+    @JsonIgnore 
+    @OneToMany( mappedBy = "seller_id" )
     private List<Post> posts;
 
     @OneToMany(mappedBy = "buyerPerson")
@@ -101,6 +103,7 @@ public class Person {
         this.photo = photo;
         this.location = location;
         this.paypal_id = paypal_id;
+    
     }
 
     public Integer getId() {
@@ -228,7 +231,9 @@ public class Person {
             return false;
         }
         Person person = (Person) o;
+
         return Objects.equals(id, person.id) && Objects.equals(role_id, person.role_id) && Objects.equals(name, person.name) && Objects.equals(username, person.username) && Objects.equals(email, person.email) && Objects.equals(password, person.password) && Objects.equals(photo, person.photo) && Objects.equals(location, person.location) && Objects.equals(paypal_id, person.paypal_id);
+
     }
 
     @Override
@@ -248,7 +253,9 @@ public class Person {
             ", photo='" + getPhoto() + "'" +
             ", location='" + getLocation() + "'" +
             ", paypal_id='" + getPaypal_id() + "'" +
+
             "}";
     }
     
 }
+
