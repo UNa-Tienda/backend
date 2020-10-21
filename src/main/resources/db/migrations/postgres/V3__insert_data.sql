@@ -1,4 +1,9 @@
-
+-- ---------
+-- Role data
+-- ---------
+INSERT INTO "public"."role" (role_id, name)
+    VALUES (1, 'User'), (2, 'Admin');
+ALTER SEQUENCE role_role_id_seq RESTART WITH 3;
 
 -- ---------
 -- Person data
