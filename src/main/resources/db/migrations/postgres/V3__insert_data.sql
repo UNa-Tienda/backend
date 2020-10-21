@@ -86,20 +86,22 @@ ALTER SEQUENCE answer_answer_id_seq RESTART WITH 1;
 -- ---------
 -- cartshop data
 -- ---------
--- Aqui van los inserts de la tabla Cartshop, dependiendo de la cantidad ingresada
--- variar el cartshop_cartshop_id_seq (default 1)
-ALTER SEQUENCE cartshop_cartshop_id_seq RESTART WITH 1;
+INSERT INTO "public"."cartshop" (cartshop_id, person_id, total, state)
+VALUES
+    (1, 1, 2000, 'active');
+ALTER SEQUENCE cartshop_cartshop_id_seq RESTART WITH 2;
 
 
 
 -- ---------
 -- cartshop_item data
 -- ---------
--- Aqui van los inserts de la tabla Cartshop_item, dependiendo de la cantidad ingresada
--- variar el cartshop_item_cartshop_item_id_seq (default 1)
-ALTER SEQUENCE cartshop_item_cartshop_item_id_seq RESTART WITH 1;
-
-
+INSERT INTO "public"."cartshop_item" (cartshop_item_id, cartshop_id, post_id, quantity)
+VALUES
+    (1, 1, 1, 1),
+    (2, 1, 2, 2),
+    (3, 1, 3, 2);
+ALTER SEQUENCE cartshop_item_cartshop_item_id_seq RESTART WITH 4;
 
 
 -- ---------
