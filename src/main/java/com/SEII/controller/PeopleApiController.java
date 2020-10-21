@@ -28,7 +28,7 @@ public class PeopleApiController {
 
     @Autowired
     RoleService roleService;
-    
+
     @GetMapping("/list")
     public List<Person> getAllPeople() {
         return peopleService.findAllPeople();
@@ -39,13 +39,12 @@ public class PeopleApiController {
         return peopleService.findById(id);
     }
 
-    @PostMapping("/add/{roleId}")
-    public ResponseEntity<Void> addPerson(@PathVariable Integer roleId, @RequestBody Person person){
+    @PostMapping("/add")
+    public ResponseEntity<Void> addPerson(@RequestBody Person person){
     //public String addPerson(@RequestBody Person person) {
-        Role role = roleService.getById(roleId);
-
+        Role role = roleService.getById(1);
         if(person != null) {
-            System.out.print(person.toString());
+            System.out.println(person.toString());
             person.setRole_id(role);
             peopleService.insert(person);
             //return "Added a person";
