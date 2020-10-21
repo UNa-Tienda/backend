@@ -1,4 +1,5 @@
 package com.SEII.controller;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -55,6 +56,21 @@ public class PeopleApiController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody Person person ) {
+        Person person2 = peopleService.findByemail(person.getEmail());
+        if(person2 != null) {
+            if(person2.getPassword().equals(person.getPassword())){
+                return new ResponseEntity<>( HttpStatus.OK );
+            }else{
+                return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+            }        
+        } else {
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+        }
+
+         
+    }
 
 	@DeleteMapping("{id}")
     public String deletePerson(@PathVariable("id") Integer id) {
