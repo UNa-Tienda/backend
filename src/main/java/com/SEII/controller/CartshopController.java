@@ -3,7 +3,7 @@ package com.SEII.controller;
 import com.SEII.models.Cartshop;
 import com.SEII.models.Cartshop_item;
 import com.SEII.models.Category;
-import com.SEII.models.Person;
+import com.SEII.models.PersonDTO;
 import com.SEII.services.CartshopItemService;
 import com.SEII.services.CartshopService;
 import com.SEII.services.PersonService;
@@ -28,9 +28,9 @@ public class CartshopController {
   CartshopItemService cartshopItemService;
 
   @PostMapping(value = {"/shopping_cart"})
-  public List<Cartshop_item>  getItems(@RequestBody Person sperson){
+  public List<Cartshop_item>  getItems(@RequestBody PersonDTO sperson){
     // cambiar despues con auth
-    Person person = peopleService.findByemail(sperson.getEmail());
+    PersonDTO person = peopleService.findByemail(sperson.getEmail());
     Cartshop cartshop = cartshopService.findByPersonId(person.getId());
     //List<Cartshop_item> items =
     return cartshopItemService.findByCartshop(cartshop.getId());
