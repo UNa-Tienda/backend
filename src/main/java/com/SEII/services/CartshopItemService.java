@@ -17,4 +17,7 @@ public class CartshopItemService {
   public List<Cartshop_item> getItems(){
     return cartshopItemRepository.findAll();
   }
+  public List<Cartshop_item> findByCartshop(int cartshopId){
+    return cartshopItemRepository.findByCartshop_Id(cartshopId);
+  }
 }
