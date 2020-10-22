@@ -29,7 +29,7 @@ public class PeopleApiController {
 
     @Autowired
     RoleService roleService;
-    
+
     @GetMapping("/list")
     public List<PersonDTO> getAllPeople() {
         return peopleService.findAllPeople();
@@ -41,16 +41,19 @@ public class PeopleApiController {
     }
 
     @PostMapping("/add")
-    public String addPerson(@RequestBody PersonDTO person) {
-        Role role = roleService.getById(1);
+    public ResponseEntity<Void> addPerson(@RequestBody PersonDTO person){
+    //public String addPerson(@RequestBody Person person) {
 
+        Role role = roleService.getById(1);
         if(person != null) {
-            System.out.print(person.toString());
-            person.setRole_id(role);;
+            System.out.println(person.toString());
+            person.setRole_id(role);
             peopleService.insert(person);
-            return "Added a person";
+            //return "Added a person";
+            return new ResponseEntity<>( HttpStatus.CREATED );
         } else {
-            return "Request does not contain a body";
+            //return "Request does not contain a body";
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
         }
     }
 
