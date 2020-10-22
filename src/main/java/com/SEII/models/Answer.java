@@ -29,7 +29,7 @@ public class Answer {
 
   @ManyToOne
   @JoinColumn(name = "person_id")
-  private Person personAnswer;
+  private PersonDTO personAnswer;
 
   @Column(name = "text")
   private String text;
@@ -38,7 +38,7 @@ public class Answer {
   public Answer() {
   }
 
-  public Answer(Integer id, Question question, Person personAnswer, String text) {
+  public Answer(Integer id, Question question, PersonDTO personAnswer, String text) {
     this.id = id;
     this.question = question;
     this.personAnswer = personAnswer;
@@ -61,11 +61,11 @@ public class Answer {
     this.question = question;
   }
 
-  public Person getPersonAnswer() {
+  public PersonDTO getPersonAnswer() {
     return this.personAnswer;
   }
 
-  public void setPersonAnswer(Person personAnswer) {
+  public void setPersonAnswer(PersonDTO personAnswer) {
     this.personAnswer = personAnswer;
   }
 
@@ -87,7 +87,7 @@ public class Answer {
     return this;
   }
 
-  public Answer personAnswer(Person personAnswer) {
+  public Answer personAnswer(PersonDTO personAnswer) {
     this.personAnswer = personAnswer;
     return this;
   }

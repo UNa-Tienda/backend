@@ -17,7 +17,7 @@ public class CategoryController {
   @Autowired
   CategoryService categoryService;
 
-  @GetMapping(value = {"/categorys"})
+  @GetMapping(value = {"/categories"})
   public List<Category> gRoles(){
     return categoryService.getCategories();
   }
