@@ -21,4 +21,6 @@ public class CartshopService {
   public Cartshop findById(int id) {
     return cartshopRepository.findById(id);
   }
+
+  public Cartshop findByPersonId(int pid){return  cartshopRepository.findByPersonCartshop_Id(pid);}
 }

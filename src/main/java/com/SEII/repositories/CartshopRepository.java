@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface CartshopRepository extends JpaRepository<Cartshop, Integer>{
 
     Cartshop findById(int id);
+
+    Cartshop findByPersonCartshop_Id(int pid);
 }

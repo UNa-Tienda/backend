@@ -30,7 +30,7 @@ public class CartshopController {
   public List<Cartshop_item>  getItems(@RequestBody String email){
     // cambiar despues con auth
     Person person = peopleService.findByemail(email);
-    Cartshop cartshop = cartshopService.findById(1);
+    Cartshop cartshop = cartshopService.findByPersonId(person.getId());
     //List<Cartshop_item> items =
     return cartshopItemService.findByCartshop(cartshop.getId());
   }
