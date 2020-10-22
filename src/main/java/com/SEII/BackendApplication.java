@@ -17,7 +17,7 @@ public class BackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 		
-		LOGGER.info("Simple log statement with inputs {}, {} and {}", 1,2,3);
+		//LOGGER.info("Simple log statement with inputs {}, {} and {}", 1,2,3);
 	}
 
 }
