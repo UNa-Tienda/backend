@@ -26,7 +26,7 @@ public class Question {
 
   @ManyToOne
   @JoinColumn(name = "person_id")
-  private Person personAsk;
+  private PersonDTO personAsk;
 
   @ManyToOne
   @JoinColumn(name = "post_id")
@@ -42,7 +42,7 @@ public class Question {
   public Question() {
   }
 
-  public Question(Integer id, Person personAsk, Post postAsked, String text, List<Answer> answers) {
+  public Question(Integer id, PersonDTO personAsk, Post postAsked, String text, List<Answer> answers) {
     this.id = id;
     this.personAsk = personAsk;
     this.postAsked = postAsked;
@@ -58,11 +58,11 @@ public class Question {
     this.id = id;
   }
 
-  public Person getPersonAsk() {
+  public PersonDTO getPersonAsk() {
     return this.personAsk;
   }
 
-  public void setPersonAsk(Person personAsk) {
+  public void setPersonAsk(PersonDTO personAsk) {
     this.personAsk = personAsk;
   }
 
@@ -95,7 +95,7 @@ public class Question {
     return this;
   }
 
-  public Question personAsk(Person personAsk) {
+  public Question personAsk(PersonDTO personAsk) {
     this.personAsk = personAsk;
     return this;
   }

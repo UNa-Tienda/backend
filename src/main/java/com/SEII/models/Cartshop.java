@@ -26,7 +26,7 @@ public class Cartshop {
 
   @OneToOne
   @JoinColumn(name = "person_id")
-  private Person personCartshop;
+  private PersonDTO personCartshop;
 
   @Column(name = "total")
   private Integer total;
@@ -42,7 +42,7 @@ public class Cartshop {
   public Cartshop() {
   }
 
-  public Cartshop(Integer id, Person personCartshop, Integer total, String state) {
+  public Cartshop(Integer id, PersonDTO personCartshop, Integer total, String state) {
     this.id = id;
     this.personCartshop = personCartshop;
     this.total = total;
@@ -57,11 +57,11 @@ public class Cartshop {
     this.id = id;
   }
 
-  public Person getPersonCartshop() {
+  public PersonDTO getPersonCartshop() {
     return this.personCartshop;
   }
 
-  public void setPersonCartshop(Person personCartshop) {
+  public void setPersonCartshop(PersonDTO personCartshop) {
     this.personCartshop = personCartshop;
   }
 
@@ -86,7 +86,7 @@ public class Cartshop {
     return this;
   }
 
-  public Cartshop personCartshop(Person personCartshop) {
+  public Cartshop personCartshop(PersonDTO personCartshop) {
     this.personCartshop = personCartshop;
     return this;
   }

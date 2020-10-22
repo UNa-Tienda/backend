@@ -3,7 +3,7 @@ package com.SEII.controller;
 import java.util.List;
 import java.util.Optional;
 
-import com.SEII.models.Person;
+import com.SEII.models.PersonDTO;
 import com.SEII.models.Role;
 import com.SEII.services.PersonService;
 import com.SEII.services.RoleService;
@@ -29,34 +29,37 @@ public class PeopleApiController {
 
     @Autowired
     RoleService roleService;
-    
+
     @GetMapping("/list")
-    public List<Person> getAllPeople() {
+    public List<PersonDTO> getAllPeople() {
         return peopleService.findAllPeople();
     }
 
-    @GetMapping("{id}")
-    public Person getPerson(@PathVariable Integer id) {
-        return peopleService.findById(id);
+    @GetMapping("{email}")
+    public PersonDTO getPersonByEmail(@PathVariable String email) {
+        return peopleService.findByemail(email);
     }
 
     @PostMapping("/add")
-    public String addPerson(@RequestBody Person person) {
-        Role role = roleService.getById(1);
+    public ResponseEntity<Void> addPerson(@RequestBody PersonDTO person){
+    //public String addPerson(@RequestBody Person person) {
 
+        Role role = roleService.getById(1);
         if(person != null) {
-            System.out.print(person.toString());
-            person.setRole_id(role);;
+            System.out.println(person.toString());
+            person.setRole_id(role);
             peopleService.insert(person);
-            return "Added a person";
+            //return "Added a person";
+            return new ResponseEntity<>( HttpStatus.CREATED );
         } else {
-            return "Request does not contain a body";
+            //return "Request does not contain a body";
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody Person person ) {
-        Person person2 = peopleService.findByemail(person.getEmail());
+    public ResponseEntity<Void> login(@RequestBody PersonDTO person ) {
+        PersonDTO person2 = peopleService.findByemail(person.getEmail());
         if(person2 != null) {
             if(person2.getPassword().equals(person.getPassword())){
                 return new ResponseEntity<>( HttpStatus.OK );
@@ -84,7 +87,7 @@ public class PeopleApiController {
     }
 
     @PutMapping("/update")
-    public String updatePerson(@RequestBody Person person) {
+    public String updatePerson(@RequestBody PersonDTO person) {
         if(person != null) {
             peopleService.update(person);
             return "Updated person.";

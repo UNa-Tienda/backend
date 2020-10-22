@@ -3,25 +3,15 @@ package com.SEII.models;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 
-@Table(name = "person")
+@Table(name = "person",uniqueConstraints={@UniqueConstraint(columnNames={"username"})})
 
-public class Person {
+public class PersonDTO {
 
     @Id
     @SequenceGenerator(name = "PERSON_PERSONID_GENERATOR", sequenceName = "public.person_person_id_seq", allocationSize = 1)
@@ -90,10 +80,10 @@ public class Person {
     private List<Answer> answers;
 
 
-    public Person() {
+    public PersonDTO() {
     }
 
-    public Person(Integer id, Role role_id, String name, String username, String email, String password, String photo, String location, String paypal_id) {
+    public PersonDTO(Integer id, Role role_id, String name, String username, String email, String password, String photo, String location, String paypal_id) {
         this.id = id;
         this.role_id = role_id;
         this.name = name;
@@ -178,47 +168,47 @@ public class Person {
         this.paypal_id = paypal_id;
     }
 
-    public Person id(Integer id) {
+    public PersonDTO id(Integer id) {
         this.id = id;
         return this;
     }
 
-    public Person role_id(Role role_id) {
+    public PersonDTO role_id(Role role_id) {
         this.role_id = role_id;
         return this;
     }
 
-    public Person name(String name) {
+    public PersonDTO name(String name) {
         this.name = name;
         return this;
     }
 
-    public Person username(String username) {
+    public PersonDTO username(String username) {
         this.username = username;
         return this;
     }
 
-    public Person email(String email) {
+    public PersonDTO email(String email) {
         this.email = email;
         return this;
     }
 
-    public Person password(String password) {
+    public PersonDTO password(String password) {
         this.password = password;
         return this;
     }
 
-    public Person photo(String photo) {
+    public PersonDTO photo(String photo) {
         this.photo = photo;
         return this;
     }
 
-    public Person location(String location) {
+    public PersonDTO location(String location) {
         this.location = location;
         return this;
     }
 
-    public Person paypal_id(String paypal_id) {
+    public PersonDTO paypal_id(String paypal_id) {
         this.paypal_id = paypal_id;
         return this;
     }
@@ -227,10 +217,10 @@ public class Person {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof Person)) {
+        if (!(o instanceof PersonDTO)) {
             return false;
         }
-        Person person = (Person) o;
+        PersonDTO person = (PersonDTO) o;
 
         return Objects.equals(id, person.id) && Objects.equals(role_id, person.role_id) && Objects.equals(name, person.name) && Objects.equals(username, person.username) && Objects.equals(email, person.email) && Objects.equals(password, person.password) && Objects.equals(photo, person.photo) && Objects.equals(location, person.location) && Objects.equals(paypal_id, person.paypal_id);
 

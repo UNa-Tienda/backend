@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.SEII.models.Person;
+import com.SEII.models.PersonDTO;
 import com.SEII.repositories.PersonRepository;
 
 @Service
@@ -15,15 +15,15 @@ public class PersonService {
     @Autowired
     PersonRepository personRepository;
 
-    public List<Person> findAllPeople() {
+    public List<PersonDTO> findAllPeople() {
         return personRepository.findAll();
     }
 
-    public Optional<Person> findByUsername(String username){
+    public Optional<PersonDTO> findByUsername(String username){
         return personRepository.findByUsername(username);
     }
 
-    public Person insert(Person p) {
+    public PersonDTO insert(PersonDTO p) {
     	
     	try 
     	{
@@ -47,8 +47,8 @@ public class PersonService {
         }
     }
 
-    public Person findById(Integer id) {
-        Optional<Person> result = personRepository.findById(id);
+    public PersonDTO findById(Integer id) {
+        Optional<PersonDTO> result = personRepository.findById(id);
         if (result.isPresent()) {
             return result.get();
         } else {
@@ -56,12 +56,12 @@ public class PersonService {
         }
     }
 
-    public Person findByemail(String email) {
+    public PersonDTO findByemail(String email) {
         return personRepository.findByEmail(email);
         }
     
 
-    public boolean update(Person p) {
+    public boolean update(PersonDTO p) {
         try {
             personRepository.save(p);
             return true;
