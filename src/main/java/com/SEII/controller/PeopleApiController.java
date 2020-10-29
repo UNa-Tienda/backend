@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import com.SEII.models.PersonDTO;
 import com.SEII.models.Role;
+import com.SEII.pojo.LoginUserPOJO;
+import com.SEII.pojo.RegisterUserPOJO;
 import com.SEII.services.PersonService;
 import com.SEII.services.RoleService;
 
@@ -41,43 +43,52 @@ public class PeopleApiController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> addPerson(@RequestBody PersonDTO person){
-    //public String addPerson(@RequestBody Person person) {
+    public ResponseEntity<Void> addPerson(@RequestBody RegisterUserPOJO user) {
+        // public String addPerson(@RequestBody Person person) {
 
         Role role = roleService.getById(1);
-        if(person != null) {
-            System.out.println(person.toString());
-            person.setRole_id(role);
-            peopleService.insert(person);
-            //return "Added a person";
-            return new ResponseEntity<>( HttpStatus.CREATED );
+        if (user != null) {
+            PersonDTO user2 = new PersonDTO();
+            user2.setName(user.getName());
+            user2.setUsername(user.getUsername());
+            user2.setEmail(user.getEmail());
+            user2.setPassword(user.getPassword()); // Aqui faltaria el cifrado
+            user2.setPhoto(user.getPhoto());
+            user2.setLocation(user.getLocation());
+            user2.setPaypal_id(user.getPaypal_id());
+
+            System.out.println(user2.toString()); // Esto deberiamos quitarlo
+
+            user2.setRole_id(role);
+            peopleService.insert(user2);
+            // return "Added a person";
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
-            //return "Request does not contain a body";
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+            // return "Request does not contain a body";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody PersonDTO person ) {
-        PersonDTO person2 = peopleService.findByemail(person.getEmail());
-        if(person2 != null) {
-            if(person2.getPassword().equals(person.getPassword())){
-                return new ResponseEntity<>( HttpStatus.OK );
-            }else{
-                return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-            }        
+    public ResponseEntity<Void> login(@RequestBody LoginUserPOJO user) {
+        PersonDTO user2 = peopleService.findByemail(user.getEmail());
+        if (user2 != null) {
+            if (user2.getPassword().equals(user.getPassword())) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         } else {
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-         
     }
 
-	@DeleteMapping("{id}")
+    @DeleteMapping("{id}")
     public String deletePerson(@PathVariable("id") Integer id) {
 
-        if(id > 0) {
-            if(peopleService.delete(id)) {
+        if (id > 0) {
+            if (peopleService.delete(id)) {
                 return "Deleted the person.";
             } else {
                 return "Cannot delete the person.";
@@ -88,7 +99,7 @@ public class PeopleApiController {
 
     @PutMapping("/update")
     public String updatePerson(@RequestBody PersonDTO person) {
-        if(person != null) {
+        if (person != null) {
             peopleService.update(person);
             return "Updated person.";
         } else {
