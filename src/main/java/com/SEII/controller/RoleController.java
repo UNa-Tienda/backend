@@ -3,6 +3,7 @@ package com.SEII.controller;
 import java.util.List;
 
 import com.SEII.models.Role;
+import com.SEII.pojo.RolesPOJO;
 import com.SEII.services.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,8 @@ public class RoleController {
   RoleService roleService;
 
   @GetMapping(value = {"/roles"})
-  public List<Role> gRoles(){
-    return roleService.getAllRoles();
+  public List<RolesPOJO> gRoles(){
+    RolesPOJO roles = new RolesPOJO();//Solo creo el objeto para poder llamar la función
+    return roles.RolesPOJO(roleService.getAllRoles()); //Con esto se retorna la lista de roles POJO
   }
 }

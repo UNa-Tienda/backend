@@ -4,6 +4,8 @@ import com.SEII.models.Cartshop;
 import com.SEII.models.Cartshop_item;
 import com.SEII.models.Category;
 import com.SEII.models.PersonDTO;
+import com.SEII.pojo.MyCartshopItemPOJO;
+import com.SEII.pojo.MyCartshopPOJO;
 import com.SEII.services.CartshopItemService;
 import com.SEII.services.CartshopService;
 import com.SEII.services.PersonService;
@@ -28,11 +30,16 @@ public class CartshopController {
   CartshopItemService cartshopItemService;
 
   @PostMapping(value = {"/shopping_cart"})
-  public List<Cartshop_item>  getItems(@RequestBody PersonDTO sperson){
+  public List<MyCartshopItemPOJO>  getItems(@RequestBody MyCartshopPOJO person){
     // cambiar despues con auth
-    PersonDTO person = peopleService.findByemail(sperson.getEmail());
-    Cartshop cartshop = cartshopService.findByPersonId(person.getId());
+    PersonDTO person2 = peopleService.findByemail(person.getEmail()); 
+    //Esta parte no require Pojos ya que no es información que entra o sale del back
+    Cartshop cartshop = cartshopService.findByPersonId(person2.getId());
+
+    MyCartshopItemPOJO myCartShopItems = new MyCartshopItemPOJO();
+    //Creo este objeto sencillamente para usar el metodo que luego me retorna la lista.
+    
     //List<Cartshop_item> items =
-    return cartshopItemService.findByCartshop(cartshop.getId());
+    return myCartShopItems.MyCartshopItemPOJO(cartshopItemService.findByCartshop(cartshop.getId()));
   }
 }
