@@ -15,22 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@RestController("/api/shopping_cart")
 public class CartshopController {
 
   @Autowired
   PersonService peopleService;
-  
+
   @Autowired
   CartshopService cartshopService;
 
   @Autowired
   CartshopItemService cartshopItemService;
 
-  @PostMapping(value = {"/shopping_cart"})
+  @PostMapping(value = {"/items"})
   public List<Cartshop_item>  getItems(@RequestBody PersonDTO sperson){
     // cambiar despues con auth
-    PersonDTO person = peopleService.findByemail(sperson.getEmail());
+    PersonDTO person = peopleService.findByEmail(sperson.getEmail());
     Cartshop cartshop = cartshopService.findByPersonId(person.getId());
     //List<Cartshop_item> items =
     return cartshopItemService.findByCartshop(cartshop.getId());

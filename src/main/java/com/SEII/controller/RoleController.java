@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController("/api/roles")
 public class RoleController {
   
   @Autowired
   RoleService roleService;
 
-  @GetMapping(value = {"/roles"})
+  @GetMapping(value = {"/list"})
   public List<Role> gRoles(){
     return roleService.getAllRoles();
   }
