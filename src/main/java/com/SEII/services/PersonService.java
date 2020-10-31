@@ -19,7 +19,7 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public Optional<PersonDTO> findByUsername(String username){
+    public PersonDTO findByUsername(String username){
         return personRepository.findByUsername(username);
     }
 
@@ -56,7 +56,7 @@ public class PersonService {
         }
     }
 
-    public PersonDTO findByemail(String email) {
+    public PersonDTO findByEmail(String email) {
         return personRepository.findByEmail(email);
         }
     

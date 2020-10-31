@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PersonRepository extends JpaRepository<PersonDTO, Integer> {
-	Optional<PersonDTO> findByUsername(String username);
+	PersonDTO findByUsername(String username);
 	PersonDTO findByEmail(String email);
 }
