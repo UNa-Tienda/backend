@@ -51,7 +51,7 @@ VALUES
     (12, 1, 5, 'titulo12', 'producto12', 'https://i.imgur.com/jI2MfWj.jpg', 'description12', 2, 10000, 3),
     (13, 1, 5, 'titulo11', 'producto13', 'https://i.imgur.com/DOhU4yz.jpg', 'description13', 3, 20000, 2),
     (14, 1, 5, 'titulo12', 'producto14', 'https://i.imgur.com/U9vwWso.png', 'description14', 2, 10000, 3);
-    ALTER SEQUENCE post_post_id_seq RESTART WITH 12;
+    ALTER SEQUENCE post_post_id_seq RESTART WITH 15;
 
 
 

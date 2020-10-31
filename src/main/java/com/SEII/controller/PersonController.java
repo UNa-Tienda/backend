@@ -67,19 +67,7 @@ public class PersonController {
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody PersonDTO person ) {
-        PersonDTO person2 = personService.findByEmail(person.getEmail());
-        if(person2 != null) {
-            if(person2.getPassword().equals(person.getPassword())){
-                return new ResponseEntity<>( HttpStatus.OK );
-            }else{
-                return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-            }        
-        } else {
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-        }
-    }
+    
 
 	@DeleteMapping("{id}")
     public String deletePerson(@PathVariable("id") Integer id) {
