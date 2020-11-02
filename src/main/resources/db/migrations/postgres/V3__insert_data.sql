@@ -10,9 +10,9 @@ ALTER SEQUENCE role_role_id_seq RESTART WITH 3;
 -- ---------
 INSERT INTO "public"."person" (person_id, role_id, name, username, email, password, photo, location, paypal_id)
 VALUES
-    (1, 1, 'Person 1', 'test1', 'test1@gmail.com', 'qwertyuiop', 'photo1', 'address1', 'paypal_id1'),
-    (2, 1, 'Person 2', 'test2', 'test2@gmail.com', 'qwertyuiop', 'photo2', 'address2', 'paypal_id2'),
-    (3, 2, 'Person 3', 'admin', 'admin@gmail.com', 'admin', 'photo3', 'address3', 'paypal_id3');
+    (1, 1, 'Person 1', 'test1', 'test1@gmail.com', '$2a$10$vQnoULaXgehJeBnn4qgC8.zsVUJr88KcAFeoJp44b9p5qIRjFxhza', 'photo1', 'address1', 'paypal_id1'),
+    (2, 1, 'Person 2', 'test2', 'test2@gmail.com', '$2a$10$vQnoULaXgehJeBnn4qgC8.zsVUJr88KcAFeoJp44b9p5qIRjFxhza', 'photo2', 'address2', 'paypal_id2'),
+    (3, 2, 'Person 3', 'admin', 'admin@gmail.com', '$2a$10$xejAg0msCKRqPs/nHCtn2eINOZcB7XTAeTIeAZrOcaYgqX6R5Lwsy', 'photo3', 'address3', 'paypal_id3');
 ALTER SEQUENCE person_person_id_seq RESTART WITH 4;
 
 
@@ -51,7 +51,7 @@ VALUES
     (12, 1, 5, 'titulo12', 'producto12', 'https://i.imgur.com/jI2MfWj.jpg', 'description12', 2, 10000, 3),
     (13, 1, 5, 'titulo11', 'producto13', 'https://i.imgur.com/DOhU4yz.jpg', 'description13', 3, 20000, 2),
     (14, 1, 5, 'titulo12', 'producto14', 'https://i.imgur.com/U9vwWso.png', 'description14', 2, 10000, 3);
-    ALTER SEQUENCE post_post_id_seq RESTART WITH 12;
+    ALTER SEQUENCE post_post_id_seq RESTART WITH 15;
 
 
 

@@ -12,6 +12,7 @@ import com.SEII.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,8 +52,8 @@ public class PostController {
     public ResponseEntity<Void> addPost(@PathVariable Integer categoryId, @RequestBody CreatePostPOJO post) {
 
         if (post != null) {
-            PersonDTO person = personService.findById(1); // esto es lo que digo que toca cambiar pero de momento lo
-                                                          // dejo con valores fijos
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            PersonDTO person = personService.findByUsername(username);
             Category category = categoryService.getCategory(categoryId);
             if (person == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

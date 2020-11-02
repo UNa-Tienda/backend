@@ -25,8 +25,7 @@ public class MyCartshopItemPOJO {
 
             cartShopItems2.get(i).setQuantity(cartShopItems.get(i).getQuantity());;
             cartShopItems2.get(i).setCartshop_item_post(cartShopItemsPost.MyCartshopItemPostPOJO(cartShopItems.get(i).getCartshop_item_post_id()));
-            /*Este ultimo atributo pude haberlo dejado como price y ya esta, pero como no se si en el futuro queramos
-            sacar mas información del post, entonces lo dejo como una clase.*/
+            /* El primero le asigna la cantidad y el segundo los atributos propios de post, especificamente titulo y precio*/
         }
 
         return cartShopItems2;
