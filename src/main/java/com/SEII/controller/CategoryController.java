@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.SEII.models.Category;
 import com.SEII.models.Role;
+import com.SEII.pojo.CategoriesPOJO;
 import com.SEII.services.CategoryService;
 import com.SEII.services.RoleService;
 
@@ -21,7 +22,8 @@ public class CategoryController {
   CategoryService categoryService;
 
   @GetMapping(value = {"/categories"})
-  public List<Category> gRoles(){
-    return categoryService.getCategories();
+  public List<CategoriesPOJO> gRoles(){
+    CategoriesPOJO roles = new CategoriesPOJO();//Solo creo el objeto para poder llamar la función
+    return roles.RolesPOJO(categoryService.getCategories());
   }
 }

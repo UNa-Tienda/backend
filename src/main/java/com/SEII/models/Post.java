@@ -20,7 +20,6 @@ import javax.persistence.Table;
 
 public class Post {
 
-
     @Id
     @SequenceGenerator(name = "POST_POSTID_GENERATOR", sequenceName = "public.post_post_id_seq", allocationSize = 1)
     @GeneratedValue(generator = "POST_POSTID_GENERATOR", strategy = GenerationType.SEQUENCE)
@@ -35,7 +34,6 @@ public class Post {
     @OneToOne
     @JoinColumn(name = "category_id", nullable = true)
     private Category category_id;
-
 
     @Column(name = "title")
 
@@ -72,10 +70,20 @@ public class Post {
     private List<Question> questions;
 
     public Post() {
+        this.total_review = 0;
     }
 
-    public Post(String title, String product_name, String image, String description,
-            Integer price, Integer stock) { // Solo agrego los atributos que usamos por ahora, quito los demas
+    public Post(String title, String product_name, String image, String description, Integer price, Integer stock) { // Solo
+                                                                                                                     // agrego
+                                                                                                                     // los
+                                                                                                                     // atributos
+                                                                                                                     // que
+                                                                                                                     // usamos
+                                                                                                                     // por
+                                                                                                                     // ahora,
+                                                                                                                     // quito
+                                                                                                                     // los
+                                                                                                                     // demas
 
         this.title = title;
         this.product_name = product_name;
