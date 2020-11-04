@@ -33,7 +33,8 @@ public class PersonController {
     private RoleService roleService;
     private PasswordEncoder passwordEncoder;
 
-    
+
+    @Autowired
     public PersonController( PersonService personService, RoleService roleService, PasswordEncoder passwordEncoder){
         this.personService = personService;
         this.roleService = roleService;

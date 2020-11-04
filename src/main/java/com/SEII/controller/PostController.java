@@ -9,6 +9,7 @@ import com.SEII.pojo.CreatePostPOJO;
 import com.SEII.services.CategoryService;
 import com.SEII.services.PersonService;
 import com.SEII.services.PostService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,22 +23,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController()
 @RequestMapping("/api/post")
 public class PostController {
 
-    @Autowired
     private PersonService personService;
-
-    @Autowired
     private PostService postService;
+    private CategoryService categoryService;
 
     @Autowired
-    private CategoryService categoryService;
+    public PostController(PersonService personService, PostService postService, CategoryService categoryService){
+        this.personService = personService;
+        this.postService = postService;
+        this.categoryService = categoryService;
+    }
+
 
     @GetMapping("/list")
     public List<Post> getAllPosts() {
         return postService.getAllPosts();
+    }
+
+    @GetMapping(value = { "/my-posts" })
+    public List<Post> getPostByPerson() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        PersonDTO person = personService.findByUsername(username);
+        if(person == null){
+            return null;
+        }else{
+            List<Post> posts = postService.getPostsByPerson(person);
+            return posts;
+        }
     }
 
     @GetMapping("{id}")
@@ -66,8 +82,8 @@ public class PostController {
             post2.setPrice(post.getPrice());
             post2.setStock(post.getStock());
 
-            post2.setSeller_id(person);
-            post2.setCategory_id(category);
+            post2.setSellerId(person);
+            post2.setCategoryId(category);
             postService.insert(post2);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {

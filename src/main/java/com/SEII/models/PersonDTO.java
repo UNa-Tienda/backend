@@ -58,7 +58,7 @@ public class PersonDTO {
 
 
     @JsonIgnore 
-    @OneToMany( mappedBy = "seller_id" )
+    @OneToMany( mappedBy = "sellerId" )
     private List<Post> posts;
 
     @OneToMany(mappedBy = "buyerPerson")

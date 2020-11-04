@@ -15,8 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/roles")
 public class RoleController {
   
+  private RoleService roleService;
+
+
   @Autowired
-  RoleService roleService;
+  public RoleController(RoleService roleService){
+    this.roleService = roleService;
+  }
 
 
   @GetMapping(value = {"/roles"})

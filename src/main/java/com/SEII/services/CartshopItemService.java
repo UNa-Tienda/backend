@@ -11,8 +11,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CartshopItemService {
   
-  @Autowired
-  CartshopItemRepository cartshopItemRepository;
+  private final CartshopItemRepository cartshopItemRepository;
+
+
+  public CartshopItemService(CartshopItemRepository cartshopItemRepository) {
+    this.cartshopItemRepository = cartshopItemRepository;
+  }
+
 
   public List<Cartshop_item> getItems(){
     return cartshopItemRepository.findAll();

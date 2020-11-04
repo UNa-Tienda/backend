@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/category")
 public class CategoryController {
   
+  private CategoryService categoryService;
+
   @Autowired
-  CategoryService categoryService;
+  public CategoryController(CategoryService categoryService){
+    this.categoryService = categoryService;
+  }
 
   @GetMapping(value = {"/categories"})
   public List<CategoriesPOJO> gRoles(){
