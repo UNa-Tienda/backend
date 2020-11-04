@@ -24,7 +24,7 @@ public class MyCartshopItemPOJO {
         for(int i = 0; i < cartShopItems.size();i++){
 
             cartShopItems2.get(i).setQuantity(cartShopItems.get(i).getQuantity());;
-            cartShopItems2.get(i).setCartshop_item_post(cartShopItemsPost.MyCartshopItemPostPOJO(cartShopItems.get(i).getCartshop_item_post_id()));
+            cartShopItems2.get(i).setCartshop_item_post(cartShopItemsPost.MyCartshopItemPostPOJO(cartShopItems.get(i).getCartshopItemPostId()));
             /* El primero le asigna la cantidad y el segundo los atributos propios de post, especificamente titulo y precio*/
         }
 

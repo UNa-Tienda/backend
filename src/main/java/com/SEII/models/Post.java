@@ -29,11 +29,11 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "person_id")
-    private PersonDTO seller_id;
+    private PersonDTO sellerId;
 
     @OneToOne
-    @JoinColumn(name = "category_id", nullable = true)
-    private Category category_id;
+    @JoinColumn(name = "categoryId", nullable = true)
+    private Category categoryId;
 
     @Column(name = "title")
 
@@ -60,7 +60,7 @@ public class Post {
     @Column(name = "stock")
     private Integer stock;
 
-    @OneToOne(mappedBy = "cartshop_item_post_id")
+    @OneToOne(mappedBy = "cartshopItemPostId")
     private Cartshop_item cartshop_item;
 
     @OneToMany(mappedBy = "postReviewed")
@@ -102,20 +102,20 @@ public class Post {
         this.id = id;
     }
 
-    public PersonDTO getSeller_id() {
-        return this.seller_id;
+    public PersonDTO getSellerId() {
+        return this.sellerId;
     }
 
-    public void setSeller_id(PersonDTO seller_id) {
-        this.seller_id = seller_id;
+    public void setSellerId(PersonDTO sellerId) {
+        this.sellerId = sellerId;
     }
 
-    public Category getCategory_id() {
-        return this.category_id;
+    public Category getCategoryId() {
+        return this.categoryId;
     }
 
-    public void setCategory_id(Category category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getTitle() {
@@ -179,13 +179,13 @@ public class Post {
         return this;
     }
 
-    public Post seller_id(PersonDTO seller_id) {
-        this.seller_id = seller_id;
+    public Post sellerId(PersonDTO sellerId) {
+        this.sellerId = sellerId;
         return this;
     }
 
-    public Post category_id(Category category_id) {
-        this.category_id = category_id;
+    public Post categoryId(Category categoryId) {
+        this.categoryId = categoryId;
         return this;
     }
 
@@ -233,8 +233,8 @@ public class Post {
         }
         Post post = (Post) o;
 
-        return Objects.equals(id, post.id) && Objects.equals(seller_id, post.seller_id)
-                && Objects.equals(category_id, post.category_id) && Objects.equals(title, post.title)
+        return Objects.equals(id, post.id) && Objects.equals(sellerId, post.sellerId)
+                && Objects.equals(categoryId, post.categoryId) && Objects.equals(title, post.title)
                 && Objects.equals(product_name, post.product_name) && Objects.equals(image, post.image)
                 && Objects.equals(description, post.description) && total_review == post.total_review
                 && Objects.equals(price, post.price) && Objects.equals(stock, post.stock);
@@ -242,14 +242,14 @@ public class Post {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, seller_id, category_id, title, product_name, image, description, total_review, price,
+        return Objects.hash(id, sellerId, categoryId, title, product_name, image, description, total_review, price,
                 stock);
     }
 
     @Override
     public String toString() {
-        return "{" + " id='" + getId() + "'" + ", seller_id='" + getSeller_id() + "'" + ", category_id='"
-                + getCategory_id() + "'" + ", title='" + getTitle() + "'" + ", product_name='" + getProduct_name() + "'"
+        return "{" + " id='" + getId() + "'" + ", sellerId='" + getSellerId() + "'" + ", categoryId='"
+                + getCategoryId() + "'" + ", title='" + getTitle() + "'" + ", product_name='" + getProduct_name() + "'"
                 + ", image='" + getImage() + "'" + ", description='" + getDescription() + "'" + ", total_review='"
                 + getTotal_review() + "'" + ", price='" + getPrice() + "'" + ", stock='" + getStock() + "'" + "}";
     }

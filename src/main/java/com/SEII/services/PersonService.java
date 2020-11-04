@@ -12,8 +12,11 @@ import com.SEII.repositories.PersonRepository;
 @Service
 public class PersonService {
     
-    @Autowired
-    PersonRepository personRepository;
+    private final PersonRepository personRepository;
+
+    public PersonService(PersonRepository personRepository){
+        this.personRepository = personRepository;
+    }
 
     public List<PersonDTO> findAllPeople() {
         return personRepository.findAll();

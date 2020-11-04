@@ -29,7 +29,7 @@ public class Cartshop_item {
 
   @OneToOne
   @JoinColumn(name = "post_id", insertable = false, updatable = false)
-  private Post cartshop_item_post_id;
+  private Post cartshopItemPostId;
 
   @Column(name = "quantity")
   private Integer quantity;
@@ -38,10 +38,10 @@ public class Cartshop_item {
   public Cartshop_item() {
   }
 
-  public Cartshop_item(Integer id, Cartshop cartshop, Post cartshop_item_post_id, Integer quantity) {
+  public Cartshop_item(Integer id, Cartshop cartshop, Post cartshopItemPostId, Integer quantity) {
     this.id = id;
     this.cartshop = cartshop;
-    this.cartshop_item_post_id = cartshop_item_post_id;
+    this.cartshopItemPostId = cartshopItemPostId;
     this.quantity = quantity;
   }
 
@@ -61,12 +61,12 @@ public class Cartshop_item {
     this.cartshop = cartshop;
   }
 
-  public Post getCartshop_item_post_id() {
-    return this.cartshop_item_post_id;
+  public Post getCartshopItemPostId() {
+    return this.cartshopItemPostId;
   }
 
-  public void setCartshop_item_post_id(Post cartshop_item_post_id) {
-    this.cartshop_item_post_id = cartshop_item_post_id;
+  public void setCartshopItemPostId(Post cartshopItemPostId) {
+    this.cartshopItemPostId = cartshopItemPostId;
   }
 
   public Integer getQuantity() {
@@ -87,8 +87,8 @@ public class Cartshop_item {
     return this;
   }
 
-  public Cartshop_item cartshop_item_post_id(Post cartshop_item_post_id) {
-    this.cartshop_item_post_id = cartshop_item_post_id;
+  public Cartshop_item cartshopItemPostId(Post cartshopItemPostId) {
+    this.cartshopItemPostId = cartshopItemPostId;
     return this;
   }
 
@@ -105,12 +105,12 @@ public class Cartshop_item {
             return false;
         }
         Cartshop_item cartshop_item = (Cartshop_item) o;
-        return Objects.equals(id, cartshop_item.id) && Objects.equals(cartshop, cartshop_item.cartshop) && Objects.equals(cartshop_item_post_id, cartshop_item.cartshop_item_post_id) && Objects.equals(quantity, cartshop_item.quantity);
+        return Objects.equals(id, cartshop_item.id) && Objects.equals(cartshop, cartshop_item.cartshop) && Objects.equals(cartshopItemPostId, cartshop_item.cartshopItemPostId) && Objects.equals(quantity, cartshop_item.quantity);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, cartshop, cartshop_item_post_id, quantity);
+    return Objects.hash(id, cartshop, cartshopItemPostId, quantity);
   }
 
   @Override
@@ -118,7 +118,7 @@ public class Cartshop_item {
     return "{" +
       " id='" + getId() + "'" +
       ", cartshop='" + getCartshop() + "'" +
-      ", cartshop_item_post_id='" + getCartshop_item_post_id() + "'" +
+      ", cartshopItemPostId='" + getCartshopItemPostId() + "'" +
       ", quantity='" + getQuantity() + "'" +
       "}";
   }

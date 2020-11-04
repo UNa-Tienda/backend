@@ -22,20 +22,25 @@ import java.util.List;
 @RequestMapping("/api/shopping_cart")
 public class CartshopController {
 
-  @Autowired
-  PersonService peopleService;
+  private PersonService personService;
+
+  private CartshopService cartshopService;
+
+  private CartshopItemService cartshopItemService;
+
 
   @Autowired
-  CartshopService cartshopService;
-
-  @Autowired
-  CartshopItemService cartshopItemService;
+  public CartshopController(PersonService personService, CartshopService cartshopService, CartshopItemService cartshopItemService){
+    this.personService = personService;
+    this.cartshopService = cartshopService;
+    this.cartshopItemService = cartshopItemService;
+  }
 
 
   @GetMapping(value = {"/items"})
   public List<MyCartshopItemPOJO>  getItems(){
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
-    PersonDTO person2 = peopleService.findByUsername(username);
+    PersonDTO person2 = personService.findByUsername(username);
     //Esta parte no require Pojos ya que no es información que entra o sale del back
     Cartshop cartshop = cartshopService.findByPersonId(person2.getId()); /*Falta controlar el caso en el que un usuario no tenga carrito
     O hacer que siempre que se crean tengan carrito (seria lo ideal) entonces mas que nada hay que controlar cuando tengan 0 items en el carrito*/

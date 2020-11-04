@@ -11,8 +11,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CouponService {
   
-  @Autowired
-  CouponRepository couponRepository;
+  private final CouponRepository couponRepository;
+
+
+  public CouponService(CouponRepository couponRepository) {
+    this.couponRepository = couponRepository;
+  }
+
 
   public List<Coupon> getCoupons(){
     return couponRepository.findAll();

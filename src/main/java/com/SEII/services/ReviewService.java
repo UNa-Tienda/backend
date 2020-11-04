@@ -11,8 +11,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReviewService {
   
-  @Autowired
-  ReviewRepository reviewRepository;
+  private final ReviewRepository reviewRepository;
+
+
+  public ReviewService(ReviewRepository reviewRepository) {
+    this.reviewRepository = reviewRepository;
+  }
+
 
   public List<Review> getReviews(){
     return reviewRepository.findAll();

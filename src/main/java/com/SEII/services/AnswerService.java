@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnswerService {
   
-  @Autowired
-  AnswerRepository answerRepository;
+  private final AnswerRepository answerRepository;
+
+  public AnswerService(AnswerRepository answerRepository){
+    this.answerRepository = answerRepository;
+  }
 
   public List<Answer> getAnswers(){
     return answerRepository.findAll();
