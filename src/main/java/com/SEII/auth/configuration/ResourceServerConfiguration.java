@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter{
   
   private static final String[] publicResources = new String[]{"/api/person/add",
-      "/api/category/**", "/api/roles/**"};
+      "/api/category/**", "/api/roles/**", "/api/post/list"};
   private static final String[] userResources = new String []{ 
       "/api/shopping-cart/**", "/api/post/**", "/api/all", "/api/transactions/**"};
 
