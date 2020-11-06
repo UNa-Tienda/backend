@@ -34,7 +34,7 @@ public class Transaction {
 
   @OneToOne
   @JoinColumn(name = "post_id", insertable = false, updatable = false)
-  private Post product_id;
+  private Post post_id;
 
   @Column(name = "stock_price")
   private Integer stock_price;
@@ -51,7 +51,7 @@ public class Transaction {
   public Transaction(Integer id, PersonDTO buyerPerson, Post product_id, Integer stock_price, Integer quantity) {
     this.id = id;
     this.buyerPerson = buyerPerson;
-    this.product_id = product_id;
+    this.post_id = product_id;
     this.stock_price = stock_price;
     this.quantity = quantity;
   }
@@ -72,12 +72,12 @@ public class Transaction {
     this.buyerPerson = buyerPerson;
   }
 
-  public Post getProduct_id() {
-    return this.product_id;
+  public Post getPost_id() {
+    return this.post_id;
   }
 
-  public void setProduct_id(Post product_id) {
-    this.product_id = product_id;
+  public void setPost_id(Post product_id) {
+    this.post_id=product_id;
   }
 
   public Integer getStock_price() {
@@ -107,7 +107,7 @@ public class Transaction {
   }
 
   public Transaction product_id(Post product_id) {
-    this.product_id = product_id;
+    this.post_id = product_id;
     return this;
   }
 
@@ -129,12 +129,12 @@ public class Transaction {
             return false;
         }
         Transaction transaction = (Transaction) o;
-        return Objects.equals(id, transaction.id) && Objects.equals(buyerPerson, transaction.buyerPerson) && Objects.equals(product_id, transaction.product_id) && Objects.equals(stock_price, transaction.stock_price) && Objects.equals(quantity, transaction.quantity);
+        return Objects.equals(id, transaction.id) && Objects.equals(buyerPerson, transaction.buyerPerson) && Objects.equals(post_id, transaction.post_id) && Objects.equals(stock_price, transaction.stock_price) && Objects.equals(quantity, transaction.quantity);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, buyerPerson, product_id, stock_price, quantity);
+    return Objects.hash(id, buyerPerson, post_id, stock_price, quantity);
   }
 
   @Override
@@ -142,7 +142,7 @@ public class Transaction {
     return "{" +
       " id='" + getId() + "'" +
       ", buyerPerson='" + getBuyerPerson() + "'" +
-      ", product_id='" + getProduct_id() + "'" +
+      ", product_id='" + getPost_id() + "'" +
       ", stock_price='" + getStock_price() + "'" +
       ", quantity='" + getQuantity() + "'" +
       "}";
