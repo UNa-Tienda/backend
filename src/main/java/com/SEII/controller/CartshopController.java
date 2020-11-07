@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController()
-@RequestMapping("/api/shopping_cart")
+@RequestMapping("/api/shopping-cart")
 public class CartshopController {
 
   private PersonService personService;
