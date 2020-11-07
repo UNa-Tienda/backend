@@ -9,6 +9,7 @@ public class MyCartshopItemPOJO {
     /*Lo que hacemos en este POJO es guardae toda la información necesaria que se pidio en el front para luego devolverla, notese
     que esta clase usa al POJO  MyCartshopItemPostPOJO, el caso del constructor es lo mismo que el POJO Mycartshoppost, y pues con solo
     ingresarle la lista que ya retornaba Juan Pablo, me crea la lista nueva con todos los datos <3*/
+    private Integer id;
     private MyCartshopItemPostPOJO cartshop_item_post;
     private Integer quantity ;
 
@@ -22,7 +23,7 @@ public class MyCartshopItemPOJO {
 
         }
         for(int i = 0; i < cartShopItems.size();i++){
-
+            cartShopItems2.get(i).setId(cartShopItems.get(i).getId());
             cartShopItems2.get(i).setQuantity(cartShopItems.get(i).getQuantity());;
             cartShopItems2.get(i).setCartshop_item_post(cartShopItemsPost.MyCartshopItemPostPOJO(cartShopItems.get(i).getCartshopItemPostId()));
             /* El primero le asigna la cantidad y el segundo los atributos propios de post, especificamente titulo y precio*/
@@ -47,6 +48,14 @@ public class MyCartshopItemPOJO {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return this.id;
     }
 
     
