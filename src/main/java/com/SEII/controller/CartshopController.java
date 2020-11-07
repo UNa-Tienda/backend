@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController()
-@RequestMapping("/api/shopping_cart")
+@RequestMapping("/api/shopping-cart")
 public class CartshopController {
 
   private PersonService personService;
