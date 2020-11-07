@@ -9,14 +9,12 @@ import com.SEII.services.CartshopItemService;
 import com.SEII.services.CartshopService;
 import com.SEII.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping("/api/shopping_cart")
@@ -51,4 +49,34 @@ public class CartshopController {
     //List<Cartshop_item> items =
     return myCartShopItems.MyCartshopItemPOJO(cartshopItemService.findByCartshop(cartshop.getId()));
   }
+
+  @DeleteMapping({"/delete-item"})
+  public String deleteCSItem(@RequestBody Integer id) {
+
+
+    if(id > 0) {
+      if(cartshopItemService.delete(id)) {
+        return "Deleted the Item.";
+      } else {
+        return "Cannot delete the Item.";
+      }
+    }
+    return "The id given is invalid.";
+  }
+
+  @PutMapping("/update")
+  public String updateItem(@RequestParam("id") Integer ID,@RequestParam("quantity") Integer quantity) {
+
+      Cartshop_item cartshopItem = cartshopItemService.getByID(ID);
+      cartshopItem.setQuantity(quantity);
+
+    if(cartshopItem != null) {
+      cartshopItemService.update(cartshopItem);
+      return "Updated Item.";
+    } else {
+      return "Request does not contain a body";
+    }
+  }
+
+
 }

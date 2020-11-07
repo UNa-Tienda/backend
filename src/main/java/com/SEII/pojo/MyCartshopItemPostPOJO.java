@@ -8,11 +8,15 @@ public class MyCartshopItemPostPOJO {
     el constructor lo dejo de esa manera.*/
     private String title;
     private Integer price;
+    private String image;
+    private Integer stock;
 
     public MyCartshopItemPostPOJO MyCartshopItemPostPOJO(Post post) {
         MyCartshopItemPostPOJO post2 = new MyCartshopItemPostPOJO();
         post2.setTitle(post.getTitle());
         post2.setPrice(post.getPrice());
+        post2.setImage(post.getImage());
+        post2.setStock(post.getStock());
         return post2;
     }
     
@@ -30,6 +34,22 @@ public class MyCartshopItemPostPOJO {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Integer getStock() {
+        return this.stock;
     }
 
 }

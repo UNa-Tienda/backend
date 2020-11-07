@@ -10,5 +10,9 @@ import java.util.List;
 @Repository
 public interface CartshopItemRepository extends JpaRepository<Cartshop_item, Integer>{
     List<Cartshop_item> findByCartshop_Id(int id);
+
+    Cartshop_item findCartshop_itemById(int id);
+
+    Cartshop_item findById(int id);
   
 }
