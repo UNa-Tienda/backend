@@ -51,8 +51,7 @@ public class CartshopController {
   }
 
   @DeleteMapping({"/delete-item"})
-  public String deleteCSItem(@RequestBody Integer id) {
-
+  public String deleteCSItem(@RequestParam("id") Integer id) {
 
     if(id > 0) {
       if(cartshopItemService.delete(id)) {
@@ -65,9 +64,9 @@ public class CartshopController {
   }
 
   @PutMapping("/update")
-  public String updateItem(@RequestParam("id") Integer ID,@RequestParam("quantity") Integer quantity) {
+  public String updateItem(@RequestParam("id") Integer id,@RequestParam("quantity") Integer quantity) {
 
-      Cartshop_item cartshopItem = cartshopItemService.getByID(ID);
+      Cartshop_item cartshopItem = cartshopItemService.getByID(id);
       cartshopItem.setQuantity(quantity);
 
     if(cartshopItem != null) {
