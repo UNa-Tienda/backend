@@ -61,8 +61,11 @@ VALUES
 -- ---------
 INSERT INTO "public"."transaction" (transaction_id, person_id, post_id, stock_price, quantity)
 VALUES
-    (1, 2, 1, 1, 1);
-ALTER SEQUENCE transaction_transaction_id_seq RESTART WITH 2;
+    (1, 2, 1, 1, 1),
+    (2, 1, 3, 1, 1),
+    (3, 1, 2, 1, 1),
+    (4, 3, 2, 1, 1);
+ALTER SEQUENCE transaction_transaction_id_seq RESTART WITH 5;
 
 
 
