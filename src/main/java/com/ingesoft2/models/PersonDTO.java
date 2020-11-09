@@ -173,7 +173,7 @@ public class PersonDTO {
         return this;
     }
 
-    public PersonDTO RoleId(Role roleId) {
+    public PersonDTO roleId(Role roleId) {
         this.roleId = roleId;
         return this;
     }
@@ -208,7 +208,7 @@ public class PersonDTO {
         return this;
     }
 
-    public PersonDTO PaypalId(String paypalId) {
+    public PersonDTO paypalId(String paypalId) {
         this.paypalId = paypalId;
         return this;
     }

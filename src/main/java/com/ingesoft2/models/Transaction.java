@@ -107,7 +107,7 @@ public class Transaction {
     return this;
   }
 
-  public Transaction StockPrice(Integer stockPrice) {
+  public Transaction stockPrice(Integer stockPrice) {
     this.stockPrice = stockPrice;
     return this;
   }
