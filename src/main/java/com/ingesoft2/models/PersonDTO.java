@@ -80,9 +80,6 @@ public class PersonDTO {
     private List<Answer> answers;
 
 
-    public PersonDTO() {
-    }
-
     public Integer getId() {
         return this.id;
     }

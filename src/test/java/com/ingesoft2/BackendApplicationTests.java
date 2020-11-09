@@ -9,6 +9,7 @@ class BackendApplicationTests {
 
 	@Test
 	void contextLoads() {
+		//Los test aun no se implementan pero dejamos esto listo para cuando empecemos 
 	}
 
 }
