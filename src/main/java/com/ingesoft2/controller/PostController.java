@@ -104,16 +104,6 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Void> updatePerson(@RequestBody Post post) {
-        if (post != null) {
-            postService.update(post);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
     public PostController(PostService postService) {
         this.postService = postService;
     }

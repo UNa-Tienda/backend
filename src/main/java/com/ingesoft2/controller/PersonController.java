@@ -6,6 +6,7 @@ import com.ingesoft2.models.PersonDTO;
 import com.ingesoft2.models.Role;
 import com.ingesoft2.pojo.MyProfilePOJO;
 import com.ingesoft2.pojo.RegisterUserPOJO;
+import com.ingesoft2.pojo.UpdateProfilePOJO;
 import com.ingesoft2.services.PersonService;
 import com.ingesoft2.services.RoleService;
 
@@ -93,13 +94,12 @@ public class PersonController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Void> updatePerson(@RequestBody PersonDTO person) {
-
-        if(person != null) {
-            personService.update(person);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Void> updatePerson(@RequestBody UpdateProfilePOJO person) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        PersonDTO person2 = personService.findByUsername(username);
+        person2.setName(person.getName());
+        person2.setLocation(person.getLocation());
+        personService.update(person2);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
