@@ -96,7 +96,7 @@ public class CartshopController {
 
       item2.setCartshop(cartshop);
 
-      Post post = postService.getByID(1);
+      Post post = postService.getByID(item1.getCartshopItemPost().getId());
       item2.setCartshopItemPostId(post);
 
       cartshopItemService.insert(item2);
