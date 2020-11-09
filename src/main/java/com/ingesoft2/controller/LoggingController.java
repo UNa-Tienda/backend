@@ -59,8 +59,7 @@ class ELKController {
 			code=HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		
-		return new ResponseEntity<LogRestResponseModel>(response,code) ;
-		
+		return new ResponseEntity<>(response,code) ;	
 	}
 	
 
