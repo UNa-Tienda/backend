@@ -3,6 +3,7 @@ package com.SEII.controller;
 import java.util.List;
 
 import com.SEII.models.Role;
+import com.SEII.pojo.RoleSingleton;
 import com.SEII.pojo.RolesPOJO;
 import com.SEII.services.RoleService;
 
@@ -27,7 +28,7 @@ public class RoleController {
   @GetMapping(value = {"/roles"})
   public List<RolesPOJO> gRoles(){
     RolesPOJO roles = new RolesPOJO();//Solo creo el objeto para poder llamar la función
-    return roles.RolesPOJO(roleService.getAllRoles()); //Con esto se retorna la lista de roles POJO
+    return roles.RolesPOJO(RoleSingleton.getInstance(roleService.getAllRoles()).getRoles()); //Con esto se retorna la lista de roles POJO
 
 }
 }

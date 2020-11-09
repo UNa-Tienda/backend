@@ -4,17 +4,13 @@ import java.util.List;
 
 
 import com.SEII.models.Category;
-import com.SEII.services.CategoryService;
 
 public class CategoriesSingleton {
     private static CategoriesSingleton uniqueInstance;
     private List<Category> categories;
 
     private CategoriesSingleton(List<Category> categories2){
-
-        for(int i = 0; i < categories2.size();i++){
-            this.categories.add( categories2.get(i) );
-        }
+        this.categories = categories2;
     }
 
     public static CategoriesSingleton getInstance(List<Category> categories2){
