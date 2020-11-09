@@ -19,6 +19,20 @@ public class CartshopItemService {
     this.cartshopItemRepository = cartshopItemRepository;
   }
 
+  public Cartshop_item insert(Cartshop_item p) {
+
+    try
+    {
+      return cartshopItemRepository.save(p);
+    }
+    catch(Exception e)
+    {
+      System.out.println(e.getMessage());
+      return p;
+    }
+
+  }
+
 
   public List<Cartshop_item> getItems(){
     return cartshopItemRepository.findAll();

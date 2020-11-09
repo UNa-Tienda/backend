@@ -10,6 +10,7 @@ public class MyCartshopItemPostPOJO {
     private Integer price;
     private String image;
     private Integer stock;
+    private Integer id;
 
     public MyCartshopItemPostPOJO MyCartshopItemPostPOJO(Post post) {
         MyCartshopItemPostPOJO post2 = new MyCartshopItemPostPOJO();
@@ -17,6 +18,7 @@ public class MyCartshopItemPostPOJO {
         post2.setPrice(post.getPrice());
         post2.setImage(post.getImage());
         post2.setStock(post.getStock());
+        post2.setId(post.getId());
         return post2;
     }
     
@@ -50,6 +52,14 @@ public class MyCartshopItemPostPOJO {
 
     public Integer getStock() {
         return this.stock;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return this.id;
     }
 
 }

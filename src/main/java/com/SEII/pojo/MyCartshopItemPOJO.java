@@ -11,7 +11,8 @@ public class MyCartshopItemPOJO {
     ingresarle la lista que ya retornaba Juan Pablo, me crea la lista nueva con todos los datos <3*/
     private Integer id;
     private MyCartshopItemPostPOJO cartshop_item_post;
-    private Integer quantity ;
+    private Integer quantity;
+    private Integer cartshopId;
 
     public List<MyCartshopItemPOJO> MyCartshopItemPOJO(List<Cartshop_item> cartShopItems) {
 
@@ -26,6 +27,7 @@ public class MyCartshopItemPOJO {
             cartShopItems2.get(i).setId(cartShopItems.get(i).getId());
             cartShopItems2.get(i).setQuantity(cartShopItems.get(i).getQuantity());;
             cartShopItems2.get(i).setCartshop_item_post(cartShopItemsPost.MyCartshopItemPostPOJO(cartShopItems.get(i).getCartshopItemPostId()));
+            cartShopItems2.get(i).setCartshopId(cartShopItems.get(i).getCartshop().getId());
             /* El primero le asigna la cantidad y el segundo los atributos propios de post, especificamente titulo y precio*/
         }
 
@@ -56,6 +58,14 @@ public class MyCartshopItemPOJO {
 
     public Integer getId() {
         return this.id;
+    }
+
+    public Integer getCartshopId() {
+        return this.cartshopId;
+    }
+
+    public void setCartshopId(Integer id) {
+        this.cartshopId = id;
     }
 
     

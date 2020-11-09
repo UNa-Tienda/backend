@@ -3,6 +3,7 @@ package com.SEII.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.SEII.models.Cartshop_item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +55,7 @@ public class PostService {
         }
     }
 
-    public Post findById(Integer id) {
+    public Post getByID (Integer id){
         Optional<Post> result = postRepository.findById(id);
         if (result.isPresent()) {
             return result.get();

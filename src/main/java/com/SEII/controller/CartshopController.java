@@ -1,14 +1,14 @@
 package com.SEII.controller;
 
-import com.SEII.models.Cartshop;
-import com.SEII.models.Cartshop_item;
-import com.SEII.models.Category;
-import com.SEII.models.PersonDTO;
+import com.SEII.models.*;
 import com.SEII.pojo.MyCartshopItemPOJO;
+import com.SEII.pojo.RegisterUserPOJO;
 import com.SEII.services.CartshopItemService;
 import com.SEII.services.CartshopService;
 import com.SEII.services.PersonService;
+import com.SEII.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +25,8 @@ public class CartshopController {
   private CartshopService cartshopService;
 
   private CartshopItemService cartshopItemService;
+
+  private PostService postService;
 
 
   @Autowired
@@ -74,6 +76,34 @@ public class CartshopController {
       return "Updated Item.";
     } else {
       return "Request does not contain a body";
+    }
+  }
+
+
+  @PostMapping("/add")
+  public ResponseEntity<Void> addItem(@RequestBody MyCartshopItemPOJO item1) {
+
+    if (item1 != null) {
+      Cartshop_item item2 = new Cartshop_item();
+      item2.setQuantity(item1.getQuantity());
+
+      String username = SecurityContextHolder.getContext().getAuthentication().getName();
+      PersonDTO person2 = personService.findByUsername(username);
+      //Esta parte no require Pojos ya que no es información que entra o sale del back
+      Cartshop cartshop = cartshopService.findByPersonId(person2.getId());
+
+      item2.setCartshop(cartshop);
+
+      Post post = postService.getByID(item1.getCartshop_item_post().getId());
+      item2.setCartshopItemPostId(post);
+
+      cartshopItemService.insert(item2);
+      // return "Added";
+      return new ResponseEntity<>(HttpStatus.CREATED);
+
+    } else {
+      // return "Request does not contain a body";
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
   }
 
