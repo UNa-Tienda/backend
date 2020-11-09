@@ -14,4 +14,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
   
   @Query("FROM transaction WHERE buyerPerson = ?person")
   List<Transaction> findByBuyerPerson(PersonDTO person);
+
+
 }

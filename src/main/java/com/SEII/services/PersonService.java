@@ -24,8 +24,8 @@ public class PersonService {
 
     public PersonDTO findByUsername(String username){
         return personRepository.findByUsername(username);
-    }
-
+    }   
+    
     public PersonDTO insert(PersonDTO p) {
     	
     	try 
