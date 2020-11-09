@@ -33,22 +33,17 @@ class ELKController {
 	RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
-
-	@RequestMapping(value = "/elk")
-	public String helloWorld() {
-		String response = "Welcome to JavaInUse" + new Date();
-		LOG.log(Level.INFO, response);
-		return response;
-	}
 	
 	@PostMapping(path="/info",consumes= {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE}
 	 			,produces= {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<LogRestResponseModel> info(@Valid @RequestBody LogDetailsRequestModel logDetails) {
 		LogRestResponseModel response=new LogRestResponseModel();
 		HttpStatus code=null;
-		
+
+		String nombreAplicacion = logDetails.getNombreAplicacion().replaceAll("[\n|\r|\t]", "_");
+		String mensaje = logDetails.getMensaje().replaceAll("[\n|\r|\t]", "_");
 		try {
-			LOG.log(Level.INFO, "App: "+logDetails.getNombreAplicacion()+" Mensaje: "+ logDetails.getMensaje());
+			LOG.log(Level.INFO, "App: "+nombreAplicacion+" Mensaje: "+ mensaje);
 			response.setCodigo(200);
 			response.setDescripcion("Log agregado correctamente");
 			code=HttpStatus.OK;
@@ -64,8 +59,7 @@ class ELKController {
 	
 
 	@RequestMapping(value = "/exception")
-	public String exception() {
-		String response = "";
+	public ResponseEntity<Void> exception() {
 		try {
 			throw new Exception("Exception has occured....");
 		} catch (Exception e) {
@@ -77,9 +71,8 @@ class ELKController {
 			e.printStackTrace(pw);
 			String stackTrace = sw.toString();
 			LOG.error("Exception - " + stackTrace);
-			response = stackTrace;
 		}
 
-		return response;
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }
