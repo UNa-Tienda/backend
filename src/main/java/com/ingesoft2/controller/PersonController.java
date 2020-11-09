@@ -39,9 +39,6 @@ public class PersonController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/hello")
-    public String hello() {return "Hello World";}
-
     @GetMapping("/list")
     public List<PersonDTO> getAllPersonDTOs() {
         return personService.findAllPeople();
