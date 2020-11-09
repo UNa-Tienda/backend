@@ -3,6 +3,7 @@ package com.ingesoft2.services;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.stereotype.Service;
 
 import com.ingesoft2.models.PersonDTO;
@@ -53,7 +54,7 @@ public class PostService {
         }
     }
 
-    public Post findById(Integer id) {
+    public Post getByID (Integer id){
         Optional<Post> result = postRepository.findById(id);
         if (result.isPresent()) {
             return result.get();

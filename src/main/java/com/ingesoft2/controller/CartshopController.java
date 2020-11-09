@@ -2,17 +2,21 @@ package com.ingesoft2.controller;
 
 import com.ingesoft2.models.Cartshop;
 import com.ingesoft2.models.PersonDTO;
+import com.ingesoft2.models.CartshopItem;
 import com.ingesoft2.pojo.MyCartshopItemPOJO;
 import com.ingesoft2.services.CartshopItemService;
 import com.ingesoft2.services.CartshopService;
+import com.ingesoft2.services.PostService;
 import com.ingesoft2.services.PersonService;
+import com.ingesoft2.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping("/api/shopping-cart")
@@ -24,12 +28,15 @@ public class CartshopController {
 
   private CartshopItemService cartshopItemService;
 
+  private PostService postService;
+
 
   @Autowired
-  public CartshopController(PersonService personService, CartshopService cartshopService, CartshopItemService cartshopItemService){
+  public CartshopController(PersonService personService, CartshopService cartshopService, CartshopItemService cartshopItemService, PostService postService){
     this.personService = personService;
     this.cartshopService = cartshopService;
     this.cartshopItemService = cartshopItemService;
+    this.postService = postService;
   }
 
 
@@ -46,4 +53,63 @@ public class CartshopController {
     //List<Cartshop_item> items =
     return myCartShopItems.myCartshopItemPOJO(cartshopItemService.findByCartshop(cartshop.getId()));
   }
+
+  @DeleteMapping({"/delete-item"})
+  public ResponseEntity<Void> deleteCSItem(@RequestParam("id") Integer id) {
+
+    if(id > 0) {
+      if(cartshopItemService.delete(id)) {
+        return new ResponseEntity<>(HttpStatus.OK);
+      } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+    }
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+  }
+
+  @PutMapping("/update")
+  public ResponseEntity<Void> updateItem(@RequestParam("id") Integer id,@RequestParam("quantity") Integer quantity) {
+
+      CartshopItem cartshopItem = cartshopItemService.getByID(id);
+      cartshopItem.setQuantity(quantity);
+
+    if(cartshopItem != null) {
+      cartshopItemService.update(cartshopItem);
+      return new ResponseEntity<>(HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+  }
+
+
+  @PostMapping("/add")
+  public ResponseEntity<Void> addItem(@RequestBody MyCartshopItemPOJO item1) {
+
+    if (item1 != null) {
+      CartshopItem item2 = new CartshopItem();
+      item2.setQuantity(item1.getQuantity());
+
+      String username = SecurityContextHolder.getContext().getAuthentication().getName();
+      PersonDTO person2 = personService.findByUsername(username);
+      //Esta parte no require Pojos ya que no es información que entra o sale del back
+      Cartshop cartshop = cartshopService.findByPersonId(person2.getId());
+
+      item2.setCartshop(cartshop);
+
+      Post post = postService.getByID(item1.getCartshopItemPost().getId());
+      item2.setCartshopItemPostId(post);
+
+      cartshopItemService.insert(item2);
+      return new ResponseEntity<>(HttpStatus.CREATED);
+
+    } else {
+      // return "Request does not contain a body";
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+  }
+
+
+
+
+
 }

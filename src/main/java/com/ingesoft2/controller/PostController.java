@@ -57,7 +57,7 @@ public class PostController {
 
     @GetMapping("{id}")
     public Post getPost(@PathVariable Integer id) {
-        return postService.findById(id);
+        return postService.getByID(id);
     }
 
     @PostMapping("/add/{categoryId}") /*

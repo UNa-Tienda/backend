@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer>{
+  Post findById(int id);
 
   @Query("FROM post WHERE seller_id = :person")
   List<Post> findBySellerId(PersonDTO person);
