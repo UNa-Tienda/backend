@@ -26,7 +26,7 @@ public class CartshopItemService {
     }
     catch(Exception e)
     {
-      System.out.println(e.getMessage());
+      /*Implementar logging sobre el insert de un cartshopItem*/
       return p;
     }
 
@@ -55,7 +55,7 @@ public class CartshopItemService {
       cartshopItemRepository.deleteById(id);
       return true;
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      /*Implementar logging sobre el delete de un cartshopItem*/
       return false;
     }
   }
@@ -65,7 +65,7 @@ public class CartshopItemService {
       cartshopItemRepository.save(p);
       return true;
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      /*Implementar logging sobre el update de un cartshopItem*/
       return false;
     }
   }

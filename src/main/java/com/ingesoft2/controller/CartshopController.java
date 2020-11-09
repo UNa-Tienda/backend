@@ -16,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController()
 @RequestMapping("/api/shopping-cart")
@@ -30,35 +29,40 @@ public class CartshopController {
 
   private PostService postService;
 
-
   @Autowired
-  public CartshopController(PersonService personService, CartshopService cartshopService, CartshopItemService cartshopItemService, PostService postService){
+  public CartshopController(PersonService personService, CartshopService cartshopService,
+      CartshopItemService cartshopItemService, PostService postService) {
     this.personService = personService;
     this.cartshopService = cartshopService;
     this.cartshopItemService = cartshopItemService;
     this.postService = postService;
   }
 
-
-  @GetMapping(value = {"/items"})
-  public List<MyCartshopItemPOJO>  getItems(){
+  @GetMapping(value = { "/items" })
+  public List<MyCartshopItemPOJO> getItems() {
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
     PersonDTO person2 = personService.findByUsername(username);
-    //Esta parte no require Pojos ya que no es información que entra o sale del back
-    Cartshop cartshop = cartshopService.findByPersonId(person2.getId()); /*Falta controlar el caso en el que un usuario no tenga carrito
-    O hacer que siempre que se crean tengan carrito (seria lo ideal) entonces mas que nada hay que controlar cuando tengan 0 items en el carrito*/
+    // Esta parte no require Pojos ya que no es información que entra o sale del
+    // back
+    Cartshop cartshop = cartshopService
+        .findByPersonId(person2.getId()); /*
+                                           * Falta controlar el caso en el que un usuario no tenga carrito O hacer que
+                                           * siempre que se crean tengan carrito (seria lo ideal) entonces mas que nada
+                                           * hay que controlar cuando tengan 0 items en el carrito
+                                           */
     MyCartshopItemPOJO myCartShopItems = new MyCartshopItemPOJO();
-    //Creo este objeto sencillamente para usar el metodo que luego me retorna la lista.
+    // Creo este objeto sencillamente para usar el metodo que luego me retorna la
+    // lista.
 
-    //List<Cartshop_item> items =
+    // List<Cartshop_item> items =
     return myCartShopItems.myCartshopItemPOJO(cartshopItemService.findByCartshop(cartshop.getId()));
   }
 
-  @DeleteMapping({"/delete-item"})
+  @DeleteMapping({ "/delete-item" })
   public ResponseEntity<Void> deleteCSItem(@RequestParam("id") Integer id) {
 
-    if(id > 0) {
-      if(cartshopItemService.delete(id)) {
+    if (id > 0) {
+      if (cartshopItemService.delete(id)) {
         return new ResponseEntity<>(HttpStatus.OK);
       } else {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -68,19 +72,18 @@ public class CartshopController {
   }
 
   @PutMapping("/update")
-  public ResponseEntity<Void> updateItem(@RequestParam("id") Integer id,@RequestParam("quantity") Integer quantity) {
+  public ResponseEntity<Void> updateItem(@RequestParam("id") Integer id, @RequestParam("quantity") Integer quantity) {
 
-      CartshopItem cartshopItem = cartshopItemService.getByID(id);
+    CartshopItem cartshopItem = cartshopItemService.getByID(id);
+
+    if (cartshopItem != null) {
       cartshopItem.setQuantity(quantity);
-
-    if(cartshopItem != null) {
       cartshopItemService.update(cartshopItem);
       return new ResponseEntity<>(HttpStatus.OK);
     } else {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
   }
-
 
   @PostMapping("/add")
   public ResponseEntity<Void> addItem(@RequestBody MyCartshopItemPOJO item1) {
@@ -91,7 +94,8 @@ public class CartshopController {
 
       String username = SecurityContextHolder.getContext().getAuthentication().getName();
       PersonDTO person2 = personService.findByUsername(username);
-      //Esta parte no require Pojos ya que no es información que entra o sale del back
+      // Esta parte no require Pojos ya que no es información que entra o sale del
+      // back
       Cartshop cartshop = cartshopService.findByPersonId(person2.getId());
 
       item2.setCartshop(cartshop);
@@ -103,13 +107,8 @@ public class CartshopController {
       return new ResponseEntity<>(HttpStatus.CREATED);
 
     } else {
-      // return "Request does not contain a body";
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
   }
-
-
-
-
 
 }

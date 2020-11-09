@@ -25,7 +25,7 @@ public class MyCartshopItemPOJO {
         }
         for(int i = 0; i < cartShopItems.size();i++){
             cartShopItems2.get(i).setId(cartShopItems.get(i).getId());
-            cartShopItems2.get(i).setQuantity(cartShopItems.get(i).getQuantity());;
+            cartShopItems2.get(i).setQuantity(cartShopItems.get(i).getQuantity());
             cartShopItems2.get(i).setCartshopId(cartShopItems.get(i).getCartshop().getId());
 
             cartShopItems2.get(i).setQuantity(cartShopItems.get(i).getQuantity());

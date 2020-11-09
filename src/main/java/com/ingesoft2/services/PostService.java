@@ -38,7 +38,7 @@ public class PostService {
     	}
     	catch(Exception e) 
     	{
-    		System.out.println(e.getMessage()); //Cambiar por logger
+    		/*Implementar logging sobre el insert de un post*/
     		return p;
     	}
         
@@ -49,7 +49,7 @@ public class PostService {
             postRepository.deleteById(id);
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage()); //Cambiar por logger
+            /*Implementar logging sobre el delete de un post*/
             return false;
         }
     }
@@ -68,7 +68,7 @@ public class PostService {
             postRepository.save(p);
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage()); //Cambiar por logger
+            /*Implementar logging sobre el update de un post*/
             return false;
         }
     }

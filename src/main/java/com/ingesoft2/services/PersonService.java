@@ -34,7 +34,7 @@ public class PersonService {
     	catch(Exception e) 
     	{
             
-    		System.out.println(e.getMessage()); //Cambiar por logger
+    		/*Implementar logging sobre el insert de un person*/
     		return p;
     	}
         
@@ -45,7 +45,7 @@ public class PersonService {
             personRepository.deleteById(id);
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage()); //Cambiar por logger
+            /*Implementar logging sobre el insert de un person*/
             return false;
         }
     }
@@ -69,7 +69,7 @@ public class PersonService {
             personRepository.save(p);
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage()); //Cambiar por logger
+            /*Implementar logging sobre el insert de un person*/
             return false;
         }
     }
