@@ -12,3 +12,4 @@ public interface CartshopItemRepository extends JpaRepository<CartshopItem, Inte
     List<CartshopItem> findByCartshopId(int id);
   
 }
+//Comentario prueba
