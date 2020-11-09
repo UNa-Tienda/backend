@@ -15,15 +15,14 @@
 	<name>backend</name>
 	<description>Demo project for Spring Boot</description>
 
+
 	<properties>
 		<java.version>11</java.version>
 		<sonar.projectKey>UNa-Tienda_backend</sonar.projectKey>
 		<sonar.organization>una-tienda</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+
 
 	<dependencies>
 
@@ -144,12 +143,15 @@
 	</dependencies>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.7.0.1746</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 
