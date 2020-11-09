@@ -12,10 +12,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackageClasses = PersonRepository.class)
 public class BackendApplication {
 	
-	private static final Logger LOGGER=LoggerFactory.getLogger(BackendApplication.class);
 	 
 	public static void main(String[] args) {
-		SpringApplication.run(BackendApplication.class, args); //LOGGER.info("Simple log statement with inputs {}, {} and {}", 1,2,3);
+		SpringApplication.run(BackendApplication.class, args);
 	}
 
 }
