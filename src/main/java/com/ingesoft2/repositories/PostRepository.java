@@ -1,6 +1,5 @@
 package com.ingesoft2.repositories;
 
-import com.SEII.models.Cartshop_item;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
