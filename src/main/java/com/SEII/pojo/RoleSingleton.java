@@ -3,7 +3,6 @@ package com.SEII.pojo;
 import java.util.List;
 
 import com.SEII.models.Role;
-import com.SEII.services.RoleService;
 
 public class RoleSingleton {
   private static RoleSingleton uniqueInstance;
