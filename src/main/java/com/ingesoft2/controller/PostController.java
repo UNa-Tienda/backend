@@ -92,25 +92,25 @@ public class PostController {
     }
 
     @DeleteMapping("{id}")
-    public String deletePost(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> deletePost(@PathVariable("id") Integer id) {
 
         if (id > 0) {
             if (postService.delete(id)) {
-                return "Deleted the post.";
+                return new ResponseEntity<>(HttpStatus.OK);
             } else {
-                return "Cannot delete the post.";
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
-        return "The id is invalid for the post.";
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/update")
-    public String updatePerson(@RequestBody Post post) {
+    public ResponseEntity<Void> updatePerson(@RequestBody Post post) {
         if (post != null) {
             postService.update(post);
-            return "Updated post.";
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            return "Request does not contain a body";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

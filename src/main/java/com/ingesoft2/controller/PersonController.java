@@ -55,7 +55,7 @@ public class PersonController {
     @PostMapping("/add")
     public ResponseEntity<Void> addPerson(@RequestBody RegisterUserPOJO user) {
 
-        Role role = roleService.getById(1);
+        Role role = roleService.findById(1);
         if (user != null) {
             PersonDTO user2 = new PersonDTO();
             user2.setName(user.getName());
@@ -79,27 +79,27 @@ public class PersonController {
 
 
     @DeleteMapping("{id}")
-    public String deletePerson(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> deletePerson(@PathVariable("id") Integer id) {
 
 
         if(id > 0) {
             if(personService.delete(id)) {
-                return "Deleted the person.";
+                return new ResponseEntity<>(HttpStatus.OK);
             } else {
-                return "Cannot delete the person.";
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
-        return "The id is invalid for the person.";
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/update")
-    public String updatePerson(@RequestBody PersonDTO person) {
+    public ResponseEntity<Void> updatePerson(@RequestBody PersonDTO person) {
 
         if(person != null) {
             personService.update(person);
-            return "Updated person.";
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            return "Request does not contain a body";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }

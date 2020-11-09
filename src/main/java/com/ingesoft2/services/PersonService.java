@@ -23,8 +23,8 @@ public class PersonService {
 
     public PersonDTO findByUsername(String username){
         return personRepository.findByUsername(username);
-    }   
-    
+    }
+
     public PersonDTO insert(PersonDTO p) {
     	
     	try 
@@ -33,6 +33,7 @@ public class PersonService {
     	}
     	catch(Exception e) 
     	{
+            
     		System.out.println(e.getMessage()); //Cambiar por logger
     		return p;
     	}

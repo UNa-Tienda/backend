@@ -22,9 +22,8 @@ public class RoleService {
     return roleRepository.findAll();
   }
 
-  public Role getById(Integer id) {
-    List<Role> roles = getAllRoles();
-
-    return roles.get(0);
+  public Role findById(int id) {
+    return roleRepository.findById(id);
   }
+
 }

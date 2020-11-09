@@ -83,19 +83,6 @@ public class PersonDTO {
     public PersonDTO() {
     }
 
-    public PersonDTO(Integer id, Role roleId, String name, String username, String email, String password, String photo, String location, String paypalId) {
-        this.id = id;
-        this.roleId = roleId;
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.photo = photo;
-        this.location = location;
-        this.paypalId = paypalId;
-    
-    }
-
     public Integer getId() {
         return this.id;
     }
