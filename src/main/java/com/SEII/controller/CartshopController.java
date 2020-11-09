@@ -46,7 +46,6 @@ public class CartshopController {
     O hacer que siempre que se crean tengan carrito (seria lo ideal) entonces mas que nada hay que controlar cuando tengan 0 items en el carrito*/
     MyCartshopItemPOJO myCartShopItems = new MyCartshopItemPOJO();
     //Creo este objeto sencillamente para usar el metodo que luego me retorna la lista.
-    
 
     //List<Cartshop_item> items =
     return myCartShopItems.MyCartshopItemPOJO(cartshopItemService.findByCartshop(cartshop.getId()));
