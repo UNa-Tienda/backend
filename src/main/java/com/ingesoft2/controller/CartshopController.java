@@ -32,10 +32,11 @@ public class CartshopController {
 
 
   @Autowired
-  public CartshopController(PersonService personService, CartshopService cartshopService, CartshopItemService cartshopItemService){
+  public CartshopController(PersonService personService, CartshopService cartshopService, CartshopItemService cartshopItemService, PostService postService){
     this.personService = personService;
     this.cartshopService = cartshopService;
     this.cartshopItemService = cartshopItemService;
+    this.postService = postService;
   }
 
 
@@ -54,29 +55,29 @@ public class CartshopController {
   }
 
   @DeleteMapping({"/delete-item"})
-  public String deleteCSItem(@RequestParam("id") Integer id) {
+  public ResponseEntity<Void> deleteCSItem(@RequestParam("id") Integer id) {
 
     if(id > 0) {
       if(cartshopItemService.delete(id)) {
-        return "Deleted the Item.";
+        return new ResponseEntity<>(HttpStatus.OK);
       } else {
-        return "Cannot delete the Item.";
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
     }
-    return "The id given is invalid.";
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
 
   @PutMapping("/update")
-  public String updateItem(@RequestParam("id") Integer id,@RequestParam("quantity") Integer quantity) {
+  public ResponseEntity<Void> updateItem(@RequestParam("id") Integer id,@RequestParam("quantity") Integer quantity) {
 
       CartshopItem cartshopItem = cartshopItemService.getByID(id);
       cartshopItem.setQuantity(quantity);
 
     if(cartshopItem != null) {
       cartshopItemService.update(cartshopItem);
-      return "Updated Item.";
+      return new ResponseEntity<>(HttpStatus.OK);
     } else {
-      return "Request does not contain a body";
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -95,11 +96,10 @@ public class CartshopController {
 
       item2.setCartshop(cartshop);
 
-      Post post = postService.getByID(item1.getCartshopItemPost().getId());
+      Post post = postService.getByID(1);
       item2.setCartshopItemPostId(post);
 
       cartshopItemService.insert(item2);
-      // return "Added";
       return new ResponseEntity<>(HttpStatus.CREATED);
 
     } else {
