@@ -3,7 +3,6 @@ package com.ingesoft2.mail;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -11,8 +10,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService implements EmailPort{
 
-  @Autowired
   private JavaMailSender sender;
+
+  public EmailService(JavaMailSender sender){
+    this.sender = sender;
+  }
 
   @Override
   public boolean sendEmail(EmailBody emailBody){
