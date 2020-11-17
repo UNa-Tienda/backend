@@ -1,12 +1,15 @@
 package com.ingesoft2.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.ingesoft2.models.CartshopItem;
 import com.ingesoft2.models.Category;
 import com.ingesoft2.models.PersonDTO;
 import com.ingesoft2.models.Post;
 import com.ingesoft2.pojo.CreatePostPOJO;
+import com.ingesoft2.services.CartshopItemService;
 import com.ingesoft2.services.CategoryService;
 import com.ingesoft2.services.PersonService;
 import com.ingesoft2.services.PostService;
@@ -30,12 +33,14 @@ public class PostController {
     private PersonService personService;
     private PostService postService;
     private CategoryService categoryService;
+    private CartshopItemService cartshopItemService;
 
     @Autowired
-    public PostController(PersonService personService, PostService postService, CategoryService categoryService){
+    public PostController(PersonService personService, PostService postService, CategoryService categoryService, CartshopItemService cartshopItemService){
         this.personService = personService;
         this.postService = postService;
         this.categoryService = categoryService;
+        this.cartshopItemService = cartshopItemService;
     }
 
 
@@ -95,6 +100,15 @@ public class PostController {
 
         if (id > 0) {
             if (postService.delete(id)) {
+                List<CartshopItem> items = new ArrayList<>();
+                items = cartshopItemService.getItems();
+                //Busqueda por fuerza bruta para encontrar todos los items asociados a ese post
+                for(int i = 0; i < items.size();i++){
+                    if(items.get(i).getCartshopItemPostId().getId().equals(id)){
+                        cartshopItemService.delete(items.get(i).getId()); /*Hago la busqueda de esta manera 
+                        ya que la id no tiene por que ser igual a la posición*/
+                    }
+                }
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
