@@ -12,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class EmailTest {
+class EmailTest {
 
   @Autowired
   private EmailService emailService;
 
   @Test
-  public void sendEmail() {
+  private void sendEmail() {
     EmailBody myEmail = new EmailBody();
     myEmail.setEmail("csolanoc@unal.edu.co");
     myEmail.setContent("<h3>this is an email test</h3> <img src=\"cid:logo\">");
@@ -28,7 +28,7 @@ public class EmailTest {
   }
 
   @Test
-  public void sendEmailWithoutReceiver(){
+  private void sendEmailWithoutReceiver(){
     EmailBody myEmail = new EmailBody();
     myEmail.setContent("<h3>this is an email test</h3> <img src=\"cid:logo\">");
     myEmail.setSubject("testing email feature");

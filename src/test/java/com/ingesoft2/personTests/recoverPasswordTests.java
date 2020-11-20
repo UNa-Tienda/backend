@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class recoverPasswordTests {
+class RecoverPasswordTests {
   
   @Autowired
   PersonService personService;
@@ -21,7 +21,7 @@ public class recoverPasswordTests {
   RecoverPasswordTokenService recoverPasswordTokenService;
 
   @Test
-  public void gToken(){
+  private void getToken(){
     PersonDTO person = new PersonDTO();
     person.setId(1);
     person.setUsername("test1");
@@ -30,7 +30,7 @@ public class recoverPasswordTests {
   }
 
   @Test
-  public void getUsernameByToken(){
+  private void getUsernameByToken(){
     PersonDTO person = new PersonDTO();
     person.setId(1);
     person.setUsername("test1");

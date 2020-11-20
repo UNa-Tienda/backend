@@ -1,6 +1,5 @@
 package com.ingesoft2.controller;
 
-import java.net.URLDecoder;
 import java.util.List;
 
 import com.ingesoft2.mail.EmailBody;
