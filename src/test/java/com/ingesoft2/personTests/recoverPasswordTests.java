@@ -21,7 +21,7 @@ class RecoverPasswordTests {
   RecoverPasswordTokenService recoverPasswordTokenService;
 
   @Test
-  private void getToken(){
+  void getToken(){
     PersonDTO person = new PersonDTO();
     person.setId(1);
     person.setUsername("test1");
@@ -30,7 +30,7 @@ class RecoverPasswordTests {
   }
 
   @Test
-  private void getUsernameByToken(){
+  void getUsernameByToken(){
     PersonDTO person = new PersonDTO();
     person.setId(1);
     person.setUsername("test1");

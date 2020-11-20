@@ -18,7 +18,7 @@ class EmailTest {
   private EmailService emailService;
 
   @Test
-  private void sendEmail() {
+  void sendEmail() {
     EmailBody myEmail = new EmailBody();
     myEmail.setEmail("csolanoc@unal.edu.co");
     myEmail.setContent("<h3>this is an email test</h3> <img src=\"cid:logo\">");
@@ -28,7 +28,7 @@ class EmailTest {
   }
 
   @Test
-  private void sendEmailWithoutReceiver(){
+  void sendEmailWithoutReceiver(){
     EmailBody myEmail = new EmailBody();
     myEmail.setContent("<h3>this is an email test</h3> <img src=\"cid:logo\">");
     myEmail.setSubject("testing email feature");
