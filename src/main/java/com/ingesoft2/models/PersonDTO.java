@@ -64,6 +64,9 @@ public class PersonDTO {
     @OneToMany(mappedBy = "buyerPerson")
     private List<Transaction> buyerTransactions;
 
+    @OneToMany(mappedBy = "personRequester")
+    private List<RecoverPasswordToken> recoverTokens;
+
     /* @OneToMany(mappedBy = "sellerPerson")
      private List<Transaction> sellerTransactions;  Chicos esto nos serviria para obtener las ventas de la persona facilmente :) att: Cesar*/
 
