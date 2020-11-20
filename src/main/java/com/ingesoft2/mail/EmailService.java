@@ -46,7 +46,7 @@ public class EmailService implements EmailPort {
       imageBody.setDataHandler(new DataHandler(ds));
       imageBody.setHeader("Content-ID", "<logo>");
 
-      imageBody.setDisposition(MimeBodyPart.INLINE);
+      imageBody.setDisposition(javax.mail.Part.INLINE);
 
       multipart.addBodyPart(imageBody);
 
@@ -57,9 +57,9 @@ public class EmailService implements EmailPort {
       sender.send(message);
       send = true;
     } catch (MessagingException e) {
-      System.out.println("Error al enviar mail.");
+      //Handle exception
     } catch (IOException e) {
-      e.printStackTrace();
+      //Handle exception
     }
     return send;
   }

@@ -22,8 +22,8 @@ public class RecoverPasswordTokenService {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  private String SUPER_SECRET_KEY = "soft-eng-ii";
-  private Long TOKEN_EXPIRATION_TIME = (long) 3600*1000;
+  private String superSecretKey = "soft-eng-ii";
+  private Long tokenExpirationTime = (long) 3600*1000;
 
 
   public RecoverPasswordTokenService(RecoverPasswordTokenRepository recoverPasswordTokenRepository) {
@@ -44,19 +44,19 @@ public class RecoverPasswordTokenService {
 
   public RecoverPasswordToken getJWToken(PersonDTO person) {
     String tokenString = Jwts.builder().setIssuedAt(new Date()).setSubject(person.getUsername())
-        .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME))
-        .signWith(SignatureAlgorithm.HS512, SUPER_SECRET_KEY).compact();
+        .setExpiration(new Date(System.currentTimeMillis() + tokenExpirationTime))
+        .signWith(SignatureAlgorithm.HS512, superSecretKey).compact();
     RecoverPasswordToken token = new RecoverPasswordToken(person, tokenString, new Date().getTime());
     recoverPasswordTokenRepository.save(token);
     return token;
   }
 
   public String getUsername(String token){
-    return Jwts.parser().setSigningKey(SUPER_SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
+    return Jwts.parser().setSigningKey(superSecretKey).parseClaimsJws(token).getBody().getSubject();
   }
 
   public Integer isExpired(RecoverPasswordToken token){
-    Date expirationTime = Jwts.parser().setSigningKey(SUPER_SECRET_KEY).parseClaimsJws(token.getToken()).getBody().getExpiration();
+    Date expirationTime = Jwts.parser().setSigningKey(superSecretKey).parseClaimsJws(token.getToken()).getBody().getExpiration();
     return new Date().compareTo(expirationTime);
   }
 
