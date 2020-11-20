@@ -85,6 +85,7 @@ public class PostController {
             post2.setDescription(post.getDescription());
             post2.setPrice(post.getPrice());
             post2.setStock(post.getStock());
+            
 
             post2.setSellerId(person);
             post2.setCategoryId(category);
@@ -95,23 +96,29 @@ public class PostController {
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable("id") Integer id) {
+        //Primero me encargo de los items asociados que se eliminan si o si sin importar las transacciones del post
+        List<CartshopItem> items = new ArrayList<>();
+        items = cartshopItemService.getItems();
+        for(int i = 0; i < items.size();i++){
+            if(items.get(i).getCartshopItemPostId().getId().equals(id)){
+                cartshopItemService.delete(items.get(i).getId()); /*Hago la busqueda de esta manera 
+                ya que la id no tiene por que ser igual a la posición*/
+            }
+        }
+        //Luego trato de eliminar el post, y en caso de no poderse, cambio su estado
 
         if (id > 0) {
+            //Caso cuando el post no tiene transacciones asociadas
             if (postService.delete(id)) {
-                List<CartshopItem> items = new ArrayList<>();
-                items = cartshopItemService.getItems();
-                //Busqueda por fuerza bruta para encontrar todos los items asociados a ese post
-                for(int i = 0; i < items.size();i++){
-                    if(items.get(i).getCartshopItemPostId().getId().equals(id)){
-                        cartshopItemService.delete(items.get(i).getId()); /*Hago la busqueda de esta manera 
-                        ya que la id no tiene por que ser igual a la posición*/
-                    }
-                }
                 return new ResponseEntity<>(HttpStatus.OK);
+            //Caso cuando el post tiene transacciones asociadas
             } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                Post post2 = postService.getByID(id);
+                post2.setState(false);//Cambios el estado del post ya que las relaciones impiden borrarlo
+                postService.update(post2); //Actualizo
+                return new ResponseEntity<>(HttpStatus.OK);
             }
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
