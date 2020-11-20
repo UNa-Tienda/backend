@@ -11,7 +11,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
   
   private static final String[] publicResources = new String[]{"/api/person/add",
       "/api/category/**", "/api/roles/**", "/api/post/list", "/api/post/{id}", 
-      "/api/email/send"};
+      "/api/email/send", "/api/person/forgot-password", "/api/person/restore-password", "/api/recover-password/validate-token/**"};
   private static final String[] userResources = new String []{ 
       "/api/shopping-cart/**", "/api/post/**", "/api/all", "/api/transactions/**"};
 

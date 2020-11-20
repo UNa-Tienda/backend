@@ -27,5 +27,15 @@ public class EmailBody {
 	public String toString() {
 		return "EmailBody [email=" + email + ", content=" + content + ", subject=" + subject + "]";
 	}
+
+	public EmailBody(){
+		
+	}
+
+	public EmailBody(String email, String content){
+			this.email = email;
+			this.content = content;
+			this.subject = "Password reset request";
+	}
 	
 }

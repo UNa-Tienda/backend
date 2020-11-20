@@ -217,3 +217,19 @@ CREATE TABLE IF NOT EXISTS "public"."answer"(
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
+
+-- ---------------------
+-- Table "public"."recover_token"
+-- ---------------------
+CREATE TABLE IF NOT EXISTS "public"."recover_token"(
+  "token_id"    SERIAL  NOT NULL,
+  "person_id"  INT     NOT NULL,
+  "token"    TEXT     NOT NULL,
+  "generated_at"         REAL,
+  PRIMARY KEY ("token_id"),
+  CONSTRAINT "fk_person_id"
+    FOREIGN KEY ("person_id")
+      REFERENCES "public"."person" ("person_id")
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
