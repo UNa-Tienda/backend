@@ -118,10 +118,27 @@ public class PostController {
                 Post post2 = postService.getByID(id);
                 post2.setState(false);//Cambios el estado del post ya que las relaciones impiden borrarlo
                 postService.update(post2); //Actualizo
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.ACCEPTED);
             }
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/mine/{id}") 
+    public ResponseEntity<Void> isItMine(@PathVariable("id") Integer id) {
+        Post post = new Post();
+        post = postService.getByID(id);
+        /*Aqui sencillamente hago una comprobación de si la persona que trata de borrar el post, es la persona que creo el post
+        si se envia la respuesta Accepted (202), el usuario y el creador son la misma persona, de lo contrario,
+        son personas distintas */
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Integer userId = personService.findByUsername(username).getId();
+        if(userId.equals(post.getSellerId().getId())){
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
     }
 
     public PostController(PostService postService) {
