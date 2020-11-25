@@ -1,9 +1,7 @@
 package com.ingesoft2.postTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 
 import com.ingesoft2.models.PersonDTO;
 import com.ingesoft2.models.Post;
