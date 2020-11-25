@@ -96,7 +96,6 @@ public class TransactionController {
     PersonDTO person2 = personService.findByUsername(username);
     // Esta parte no require Pojos ya que no es información que entra o sale del
     // back
-    System.out.println(person2.getId());
     Cartshop cartshop = cartshopService.findByPersonId(person2.getId());
 
     MyCartshopItemPOJO myCartShopItems = new MyCartshopItemPOJO();
