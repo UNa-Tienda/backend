@@ -47,4 +47,18 @@ public class TransactionService {
   public List<Transaction> findByPerson(PersonDTO person){
     return transactionRepository.findByBuyerPerson(person);
 }
+
+  public Transaction insert(Transaction p) {
+
+    try
+    {
+      return transactionRepository.save(p);
+    }
+    catch(Exception e)
+    {
+      /*Implementar logging sobre el insert de un cartshopItem*/
+      return p;
+    }
+
+  }
 }
