@@ -10,6 +10,7 @@ import com.ingesoft2.models.Post;
 import com.ingesoft2.models.Transaction;
 import com.ingesoft2.pojo.MyCartshopItemPOJO;
 import com.ingesoft2.services.*;
+import com.ingesoft2.services.CartshopService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,9 +32,12 @@ public class TransactionController {
   private PostService postService;
 
   @Autowired
-  public TransactionController(TransactionService transactionService, PersonService personService){
+  public TransactionController(TransactionService transactionService, PersonService personService, CartshopService cartshopService, CartshopItemService cartshopItemService, PostService postService){
     this.transactionService = transactionService;
     this.personService = personService;
+    this.cartshopItemService = cartshopItemService;
+    this.postService = postService;
+    this.cartshopService = cartshopService;
   }
   
   @GetMapping(value = {"/all"})
