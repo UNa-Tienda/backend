@@ -2,7 +2,6 @@ package com.ingesoft2.services;
 
 import java.util.List;
 
-import com.ingesoft2.models.CartshopItem;
 import com.ingesoft2.models.PersonDTO;
 import com.ingesoft2.models.Transaction;
 import com.ingesoft2.repositories.TransactionRepository;

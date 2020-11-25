@@ -1,6 +1,5 @@
 package com.ingesoft2.controller;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -93,8 +92,7 @@ public class PostController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable("id") Integer id) {
         //Primero me encargo de los items asociados que se eliminan si o si sin importar las transacciones del post
-        List<CartshopItem> items = new ArrayList<>();
-        items = cartshopItemService.getItems();
+        List<CartshopItem> items = cartshopItemService.getItems();
         for(int i = 0; i < items.size();i++){
             if(items.get(i).getCartshopItemPostId().getId().equals(id)){
                 cartshopItemService.delete(items.get(i).getId()); /*Hago la busqueda de esta manera 
@@ -120,8 +118,7 @@ public class PostController {
 
     @GetMapping("/mine/{id}") 
     public ResponseEntity<Void> isItMine(@PathVariable("id") Integer id) {
-        Post post = new Post();
-        post = postService.getByID(id);
+        Post post = postService.getByID(id);
         /*Aqui sencillamente hago una comprobación de si la persona que trata de borrar el post, es la persona que creo el post
         si se envia la respuesta Accepted (202), el usuario y el creador son la misma persona, de lo contrario,
         son personas distintas */
