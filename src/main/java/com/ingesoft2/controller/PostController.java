@@ -9,6 +9,7 @@ import com.ingesoft2.models.Category;
 import com.ingesoft2.models.PersonDTO;
 import com.ingesoft2.models.Post;
 import com.ingesoft2.pojo.CreatePostPOJO;
+import com.ingesoft2.pojo.UpdatePostPOJO;
 import com.ingesoft2.services.CartshopItemService;
 import com.ingesoft2.services.CategoryService;
 import com.ingesoft2.services.PersonService;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -143,6 +145,18 @@ public class PostController {
 
     public PostController(PostService postService) {
         this.postService = postService;
+    }
+    
+    @PutMapping("/update")
+    public ResponseEntity<Void> updatePerson(@RequestBody UpdatePostPOJO post) {
+        Post post2 = postService.getByID(post.getId());
+        post2.setProductName(post.getProductName());
+        post2.setTitle(post.getTitle());
+        post2.setDescription(post.getDescription());
+        post2.setPrice(post.getPrice());
+        post2.setStock(post.getStock());
+        postService.update(post2);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
