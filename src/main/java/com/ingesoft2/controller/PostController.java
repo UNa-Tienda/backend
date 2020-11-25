@@ -100,7 +100,6 @@ public class PostController {
             }
         }
         //Luego trato de eliminar el post, y en caso de no poderse, cambio su estado
-
         if (id > 0) {
             //Caso cuando el post no tiene transacciones asociadas
             if (postService.delete(id)) {

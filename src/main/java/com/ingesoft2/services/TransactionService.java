@@ -13,6 +13,17 @@ public class TransactionService {
   
   private TransactionRepository transactionRepository;
 
+
+  public boolean delete(Integer id) {
+      try {
+          transactionRepository.deleteById(id);
+          return true;
+      } catch (Exception e) {
+
+          return false;
+      }
+  }
+
   public TransactionService(TransactionRepository transactionRepository){
     this.transactionRepository = transactionRepository;
   }
