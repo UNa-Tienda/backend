@@ -86,11 +86,11 @@ public class CartshopController {
   }
 
   @PostMapping("/add")
-  public ResponseEntity<Void> addItem(@RequestBody MyCartshopItemPOJO item1) {
+  public ResponseEntity<Void> addItem(@RequestParam("quantity") Integer quantity, @RequestParam("postId") Integer postId) {
 
-    if (item1 != null) {
+    if (quantity != 0 && postId != null) {
       CartshopItem item2 = new CartshopItem();
-      item2.setQuantity(item1.getQuantity());
+      item2.setQuantity(quantity);
 
       String username = SecurityContextHolder.getContext().getAuthentication().getName();
       PersonDTO person2 = personService.findByUsername(username);
@@ -100,7 +100,7 @@ public class CartshopController {
 
       item2.setCartshop(cartshop);
 
-      Post post = postService.getByID(item1.getCartshopItemPost().getId());
+      Post post = postService.getByID(postId);
       item2.setCartshopItemPostId(post);
 
       cartshopItemService.insert(item2);
