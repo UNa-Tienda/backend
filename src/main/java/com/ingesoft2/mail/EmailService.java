@@ -63,9 +63,7 @@ public class EmailService implements EmailPort {
       helper.setSubject(subject);
       sender.send(message);
       send = true;
-    } catch (MessagingException e) {
-      //Handle exception
-    } catch (IOException e) {
+    } catch (MessagingException|IOException e) {
       //Handle exception
     }
     return send;
@@ -81,7 +79,7 @@ public class EmailService implements EmailPort {
         String base = "<div>" + temp + "</div>";
         itemsList.add(base);
       }
-      StringBuffer sb = new StringBuffer();
+      StringBuilder sb = new StringBuilder();
 
       for(String str: itemsList){
         sb.append(str);
