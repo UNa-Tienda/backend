@@ -59,6 +59,9 @@ public class Post {
     @Column(name = "stock")
     private Integer stock;
 
+    @Column(name = "state")
+    private Boolean state;
+
     @OneToOne(mappedBy = "cartshopItemPostId")
     private CartshopItem cartshopItem;
 
@@ -70,9 +73,10 @@ public class Post {
 
     public Post() {
         this.totalReview = 0;
+        this.state = true;
     }
 
-    public Post(String title, String productName, String image, String description, Integer price, Integer stock) {
+    public Post(String title, String productName, String image, String description, Integer price, Integer stock, Boolean state) {
     /*Solo agrego los atributos que usamos por ahora, quito los demas.*/
         this.title = title;
         this.productName = productName;
@@ -81,6 +85,7 @@ public class Post {
         this.totalReview = 0;
         this.price = price;
         this.stock = stock;
+        this.state = state;
     }
 
     public Integer getId() {
@@ -163,6 +168,8 @@ public class Post {
         this.stock = stock;
     }
 
+    
+
     public Post id(Integer id) {
         this.id = id;
         return this;
@@ -241,6 +248,14 @@ public class Post {
                 + getCategoryId() + "'" + ", title='" + getTitle() + "'" + ", productName='" + getProductName() + "'"
                 + ", image='" + getImage() + "'" + ", description='" + getDescription() + "'" + ", totalReview='"
                 + getTotalReview() + "'" + ", price='" + getPrice() + "'" + ", stock='" + getStock() + "'" + "}";
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
     }
 
 }

@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS "public"."post"(
   "total_review"  DOUBLE PRECISION,
   "price"         INT     NOT NULL,
   "stock"         INT     NOT NULL,
+  "state"         BOOLEAN     NOT NULL, 
   PRIMARY KEY ("post_id"),
   CONSTRAINT "fk_person_id"
     FOREIGN KEY ("person_id")
