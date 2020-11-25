@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.ingesoft2.models.Cartshop;
 import com.ingesoft2.models.PersonDTO;
+import com.ingesoft2.models.Post;
 import com.ingesoft2.models.Transaction;
-import com.ingesoft2.services.PersonService;
-import com.ingesoft2.services.TransactionService;
+import com.ingesoft2.pojo.MyCartshopItemPOJO;
+import com.ingesoft2.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +26,9 @@ public class TransactionController {
   
   private TransactionService transactionService;
   private PersonService personService;
+  private CartshopService cartshopService;
+  private CartshopItemService cartshopItemService;
+  private PostService postService;
 
   @Autowired
   public TransactionController(TransactionService transactionService, PersonService personService){
@@ -63,6 +71,52 @@ public class TransactionController {
       }
     }
     return myTransactions;
+  }
+
+  @PostMapping("/buy")
+  public ResponseEntity<Void> createTransaction(){
+
+    Transaction transaction = new Transaction();
+
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    Post post;
+
+    PersonDTO person2 = personService.findByUsername(username);
+    // Esta parte no require Pojos ya que no es información que entra o sale del
+    // back
+    System.out.println(person2.getId());
+    Cartshop cartshop = cartshopService.findByPersonId(person2.getId());
+
+    MyCartshopItemPOJO myCartShopItems = new MyCartshopItemPOJO();
+    // Creo este objeto sencillamente para usar el metodo que luego me retorna la lista.
+
+
+    List<MyCartshopItemPOJO> items = myCartShopItems.myCartshopItemPOJO(cartshopItemService.findByCartshop(cartshop.getId()));
+
+    if (items != null) {
+      for (MyCartshopItemPOJO item:items) {
+        post = postService.getByID(item.getCartshopItemPost().getId());
+        transaction.setBuyerPerson(person2);
+        transaction.setPostId(post);
+        transaction.setQuantity(item.getQuantity());
+        transaction.setStockPrice(post.getPrice());
+
+        // crea un transaction por cada item
+        transactionService.insert(transaction);
+
+        //elimina el cartshop item
+        cartshopItemService.delete(item.getId());
+
+        //actualiza el stock en post
+        post.setStock(post.getStock()-transaction.getQuantity());
+        postService.update(post);
+      }
+
+      return new ResponseEntity<>(HttpStatus.CREATED);
+    } else {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
   }
   
 }
