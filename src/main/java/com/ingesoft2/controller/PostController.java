@@ -1,6 +1,5 @@
 package com.ingesoft2.controller;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,14 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController()
 @RequestMapping("/api/post")
@@ -101,8 +94,7 @@ public class PostController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable("id") Integer id) {
         //Primero me encargo de los items asociados que se eliminan si o si sin importar las transacciones del post
-        List<CartshopItem> items = new ArrayList<>();
-        items = cartshopItemService.getItems();
+        List<CartshopItem> items = cartshopItemService.getItems();
         for(int i = 0; i < items.size();i++){
             if(items.get(i).getCartshopItemPostId().getId().equals(id)){
                 cartshopItemService.delete(items.get(i).getId()); /*Hago la busqueda de esta manera 
@@ -110,7 +102,6 @@ public class PostController {
             }
         }
         //Luego trato de eliminar el post, y en caso de no poderse, cambio su estado
-
         if (id > 0) {
             //Caso cuando el post no tiene transacciones asociadas
             if (postService.delete(id)) {
@@ -128,8 +119,7 @@ public class PostController {
 
     @GetMapping("/mine/{id}") 
     public ResponseEntity<Void> isItMine(@PathVariable("id") Integer id) {
-        Post post = new Post();
-        post = postService.getByID(id);
+        Post post = postService.getByID(id);
         /*Aqui sencillamente hago una comprobación de si la persona que trata de borrar el post, es la persona que creo el post
         si se envia la respuesta Accepted (202), el usuario y el creador son la misma persona, de lo contrario,
         son personas distintas */
@@ -141,6 +131,20 @@ public class PostController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Void> updatePost(@RequestParam("id") Integer id, @RequestParam("stock") Integer stock) {
+
+        Post post = postService.getByID(id);
+
+        if (post != null) {
+            post.setStock(stock);
+            postService.update(post);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     public PostController(PostService postService) {

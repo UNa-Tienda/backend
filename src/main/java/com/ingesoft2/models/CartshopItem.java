@@ -28,7 +28,7 @@ public class CartshopItem {
   private Cartshop cartshop;
 
   @OneToOne
-  @JoinColumn(name = "post_id", insertable = false, updatable = false)
+  @JoinColumn(name = "post_id", updatable = false)
   private Post cartshopItemPostId;
 
   @Column(name = "quantity")

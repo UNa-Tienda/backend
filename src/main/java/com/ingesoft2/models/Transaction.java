@@ -29,7 +29,7 @@ public class Transaction {
   private PersonDTO buyerPerson;
 
   @OneToOne
-  @JoinColumn(name = "postId", insertable = false, updatable = false)
+  @JoinColumn(name = "postId")
   private Post postId;
 
   @Column(name = "stock_price")

@@ -13,6 +13,17 @@ public class TransactionService {
   
   private TransactionRepository transactionRepository;
 
+
+  public boolean delete(Integer id) {
+      try {
+          transactionRepository.deleteById(id);
+          return true;
+      } catch (Exception e) {
+
+          return false;
+      }
+  }
+
   public TransactionService(TransactionRepository transactionRepository){
     this.transactionRepository = transactionRepository;
   }
@@ -24,4 +35,18 @@ public class TransactionService {
   public List<Transaction> findByPerson(PersonDTO person){
     return transactionRepository.findByBuyerPerson(person);
 }
+
+  public Transaction insert(Transaction p) {
+
+    try
+    {
+      return transactionRepository.save(p);
+    }
+    catch(Exception e)
+    {
+      /*Implementar logging sobre el insert de un cartshopItem*/
+      return p;
+    }
+
+  }
 }
