@@ -13,18 +13,6 @@ public class TransactionService {
   
   private TransactionRepository transactionRepository;
 
-  public Transaction insert(Transaction t) {
-    	
-    try 
-    {
-      return transactionRepository.save(t);
-    }
-    catch(Exception e) 
-    {
-      return t;
-    }
-      
-  }
 
   public boolean delete(Integer id) {
       try {
