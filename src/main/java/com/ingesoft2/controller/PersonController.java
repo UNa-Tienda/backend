@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.ingesoft2.mail.EmailBody;
 import com.ingesoft2.mail.EmailService;
+import com.ingesoft2.models.Cartshop;
 import com.ingesoft2.models.PersonDTO;
 import com.ingesoft2.models.RecoverPasswordToken;
 import com.ingesoft2.models.Role;
 import com.ingesoft2.pojo.MyProfilePOJO;
 import com.ingesoft2.pojo.RegisterUserPOJO;
 import com.ingesoft2.pojo.UpdateProfilePOJO;
+import com.ingesoft2.services.CartshopService;
 import com.ingesoft2.services.PersonService;
 import com.ingesoft2.services.RecoverPasswordTokenService;
 import com.ingesoft2.services.RoleService;
@@ -37,14 +39,16 @@ public class PersonController {
     private PasswordEncoder passwordEncoder;
     private RecoverPasswordTokenService recoverPasswordTokenService;
     private EmailService emailService;
+    private CartshopService cartshopService;
 
     @Autowired
-    public PersonController( PersonService personService, RoleService roleService, PasswordEncoder passwordEncoder, RecoverPasswordTokenService recoverPasswordTokenService, EmailService emailService){
+    public PersonController( PersonService personService, RoleService roleService, PasswordEncoder passwordEncoder, RecoverPasswordTokenService recoverPasswordTokenService, EmailService emailService, CartshopService cartshopService){
         this.personService = personService;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
         this.recoverPasswordTokenService = recoverPasswordTokenService;
         this.emailService = emailService;
+        this.cartshopService = cartshopService;
     }
 
     @GetMapping("/list")
@@ -107,6 +111,7 @@ public class PersonController {
 
             user2.setRoleId(role);
             personService.insert(user2);
+            cartshopService.insert(new Cartshop(user2));
             return new ResponseEntity<>(HttpStatus.CREATED);
 
         } else {
