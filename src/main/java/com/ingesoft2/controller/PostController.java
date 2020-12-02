@@ -133,20 +133,6 @@ public class PostController {
 
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Void> updatePost(@RequestParam("id") Integer id, @RequestParam("stock") Integer stock) {
-
-        Post post = postService.getByID(id);
-
-        if (post != null) {
-            post.setStock(stock);
-            postService.update(post);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
     public PostController(PostService postService) {
         this.postService = postService;
     }
