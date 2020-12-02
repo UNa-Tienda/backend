@@ -31,9 +31,14 @@ public class Cartshop {
 
   @Column(name = "state")
   private String state;
+  
+  public Cartshop() {}
 
 
-  public Cartshop() {
+  public Cartshop(PersonDTO personCartshop) {
+	  this.personCartshop = personCartshop;
+	  this.total = 0;
+	  this.state = "active";
   }
 
   public Cartshop(Integer id, PersonDTO personCartshop, Integer total, String state) {
