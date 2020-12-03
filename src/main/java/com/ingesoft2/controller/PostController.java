@@ -1,12 +1,19 @@
 package com.ingesoft2.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import com.ingesoft2.models.CartshopItem;
 import com.ingesoft2.models.Category;
 import com.ingesoft2.models.PersonDTO;
 import com.ingesoft2.models.Post;
+import com.ingesoft2.pojo.CreatePostImagePOJO;
 import com.ingesoft2.pojo.CreatePostPOJO;
 import com.ingesoft2.pojo.UpdatePostPOJO;
 import com.ingesoft2.services.CartshopItemService;
@@ -15,10 +22,20 @@ import com.ingesoft2.services.PersonService;
 import com.ingesoft2.services.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.awt.image.BufferedImage;
 
 
 @RestController()
@@ -60,11 +77,57 @@ public class PostController {
         return postService.getByID(id);
     }
 
+
+    @PostMapping("/pruebas")
+    public String postImage2() {
+        String api = "https://api.imgur.com/3/upload";        
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Client-ID 79ae804643cffff");
+        headers.set("Content-Disposition", "form-data;");
+
+        File gatito = new File("C:\\Users\\Equipo\\Downloads\\gatitoPrueba.png");
+        String filename = gatito.getName();
+
+
+
+            byte[] res = new byte[0];
+        try {
+            BufferedImage image = ImageIO.read(gatito);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", baos);
+            res = baos.toByteArray();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ByteArrayResource contentAsResource = new ByteArrayResource(res){
+            @Override
+            public String getFilename(){
+                return filename;
+            }
+        };
+
+
+        MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
+        formData.add("image", contentAsResource);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(formData, headers);
+
+        ResponseEntity<String> result = restTemplate.exchange(api, HttpMethod.POST,requestEntity,String.class);
+
+        String link = result.getBody();
+        int inicio = link.indexOf("https");
+        int fin = link.lastIndexOf("png");
+        link = link.substring(inicio, fin+3); // le sumo 3 ya que el indice fin apunta a la "p" y por que el metodo substring usa n-1.
+        return link;
+    }
+
     @PostMapping("/add/{categoryId}") /*
                                        * Aqui tocaria ver como se saca la informaciòn del token para poner la ID en
                                        * lugar de ese "1" que esta fijo
                                        */
-    public ResponseEntity<Void> addPost(@PathVariable Integer categoryId, @RequestBody CreatePostPOJO post) {
+    public ResponseEntity<Void> addPost(@PathVariable Integer categoryId, @RequestBody CreatePostImagePOJO post) {
 
         if (post != null) {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -76,7 +139,6 @@ public class PostController {
             Post post2 = new Post();
             post2.setTitle(post.getTitle());
             post2.setProductName(post.getProductName());
-            post2.setImage(post.getImage());
             post2.setDescription(post.getDescription());
             post2.setPrice(post.getPrice());
             post2.setStock(post.getStock());
@@ -84,6 +146,52 @@ public class PostController {
 
             post2.setSellerId(person);
             post2.setCategoryId(category);
+
+            //Sección en la que se guarda la imagen en imgur y se obtiene el link
+
+            String api = "https://api.imgur.com/3/upload";        
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Client-ID 79ae804643cffff");//Datos para acceder a la API
+            headers.set("Content-Disposition", "form-data;");
+            
+            File imagen = post.getImage();
+            String filename = imagen.getName();
+
+            //Pasando la imagen a un archivo binario para poder subirlo a imgur
+            byte[] res = new byte[0];
+            try {
+                BufferedImage image = ImageIO.read(imagen);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(image, "png", baos);
+                res = baos.toByteArray();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ByteArrayResource contentAsResource = new ByteArrayResource(res){
+                @Override
+                public String getFilename(){
+                    return filename;
+                }
+            };
+            //Aqui ya quedo la infor dentro de res
+            //Ahora preparamos la petición a la API de imgur
+            MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
+            formData.add("image", contentAsResource);
+            HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(formData, headers);
+
+            //Esta es la respuesta de la petición
+            ResponseEntity<String> result = restTemplate.exchange(api, HttpMethod.POST,requestEntity,String.class);
+
+            //Y aqui separo el link de toda la respuesta
+            String link = result.getBody();
+            int inicio = link.indexOf("https");
+            int fin = link.lastIndexOf("png"); //Si la imagen no es png podriamos tener problemas D:
+            link = link.substring(inicio, fin+3); // le sumo 3 ya que el indice fin apunta a la "p" y por que el metodo substring usa n-1.
+
+            //Fin de la sección de imgur
+            post2.setImage(link);
             postService.insert(post2);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
