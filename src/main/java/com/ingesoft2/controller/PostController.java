@@ -1,7 +1,13 @@
 package com.ingesoft2.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import com.ingesoft2.models.CartshopItem;
 import com.ingesoft2.models.Category;
@@ -15,10 +21,21 @@ import com.ingesoft2.services.PersonService;
 import com.ingesoft2.services.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.awt.image.BufferedImage;
 
 
 @RestController()
@@ -29,6 +46,7 @@ public class PostController {
     private PostService postService;
     private CategoryService categoryService;
     private CartshopItemService cartshopItemService;
+    public String imageLink;
 
     @Autowired
     public PostController(PersonService personService, PostService postService, CategoryService categoryService, CartshopItemService cartshopItemService){
@@ -36,6 +54,7 @@ public class PostController {
         this.postService = postService;
         this.categoryService = categoryService;
         this.cartshopItemService = cartshopItemService;
+        imageLink = "";
     }
 
 
@@ -60,11 +79,51 @@ public class PostController {
         return postService.getByID(id);
     }
 
+
+    @PostMapping("/add-image")
+    public void createNewObjectWithImage(@RequestParam(value = "file", required = true) MultipartFile file)
+            throws IOException {
+
+        String api = "https://api.imgur.com/3/upload";        
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Client-ID 79ae804643cffff");//Datos para acceder a la API
+            headers.set("Content-Disposition", "form-data;");
+            
+            String filename = file.getOriginalFilename();
+
+            ByteArrayResource contentAsResource = new ByteArrayResource(file.getBytes()){
+                @Override
+                public String getFilename(){
+                    return filename;
+                }
+            };
+            //Aqui ya quedo la infor dentro de res
+            //Ahora preparamos la petición a la API de imgur
+            MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
+            formData.add("image", contentAsResource);
+            HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(formData, headers);
+
+            //Esta es la respuesta de la petición
+            ResponseEntity<String> result = restTemplate.exchange(api, HttpMethod.POST,requestEntity,String.class);
+
+            //Y aqui separo el link de toda la respuesta
+            String link = result.getBody();
+            int inicio = link.indexOf("https");
+            int fin = link.lastIndexOf("png"); //Si la imagen no es png podriamos tener problemas D:
+            link = link.substring(inicio, fin+3);
+            this.imageLink = link;
+    }
+        
+       
+    
+
     @PostMapping("/add/{categoryId}") /*
                                        * Aqui tocaria ver como se saca la informaciòn del token para poner la ID en
                                        * lugar de ese "1" que esta fijo
                                        */
-    public ResponseEntity<Void> addPost(@PathVariable Integer categoryId, @RequestBody CreatePostPOJO post) {
+    public ResponseEntity<Void> addPost(@PathVariable Integer categoryId, @RequestBody CreatePostPOJO post)
+            throws IOException {
 
         if (post != null) {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -76,7 +135,6 @@ public class PostController {
             Post post2 = new Post();
             post2.setTitle(post.getTitle());
             post2.setProductName(post.getProductName());
-            post2.setImage(post.getImage());
             post2.setDescription(post.getDescription());
             post2.setPrice(post.getPrice());
             post2.setStock(post.getStock());
@@ -84,6 +142,7 @@ public class PostController {
 
             post2.setSellerId(person);
             post2.setCategoryId(category);
+            post2.setImage(this.imageLink);
             postService.insert(post2);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
